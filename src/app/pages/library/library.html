@@ -1,5 +1,46 @@
-<h2>library works!</h2>
+<div class="libraryContainer">
+    <div class="topContainer">
+        <div class="lib-top">
+            <h1>Add Library</h1>
+        </div>
+        <div class="lib-input">
+            <div class="nameContainer">
+                <label for="libraryName">Library Name: </label>
+                <input class="libraryName" name="libraryName" id="libraryName" [(ngModel)]="newLibrary.libraryName" (ngModelChange)="checkLibraryName()"/>
+            </div>
+            
+            <div *ngIf="checkLibraryNameErr" class="errorName">Name already exist try another name!...</div>
+        </div>
+        <div [ngClass]="disableButton() ? 'lib-disableButton' : 'lib-submit'">
+            <button [disabled]="disableButton()" (click)="addLibrary()">Submit</button>
+        </div>
 
-<div>
-    <h2></h2>
+        <!-- <p>{{!addLibraryName || checkLibraryNameErr || selectedList().length === 0}}</p>  -->
+    </div>
+    <div class="lib-bottom">
+        <div class="member-select">
+            <h1>Add Member:</h1>
+            <div class="selection">
+                <select [(ngModel)]="newMemberid">
+                    <option value="" disabled selected>Select Member</option>
+                    <option *ngFor="let itm of filterMemberList()" [value]="itm.memberId">
+                        {{itm.fullName}}
+                    </option>
+                </select>
+            <button (click)="addMemberLibrary()">
+                Add
+            </button> 
+            </div>
+            
+        </div>
+        <div class="member-selected">
+            <ul class="members-table">
+                <li *ngFor="let item of selectedList()">
+                    <div>{{item.fullName}}</div>
+                    <div><button (click)="removeMemberLibrary(item.memberId )">Remove</button></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
 </div>

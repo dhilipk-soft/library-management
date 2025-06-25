@@ -24,6 +24,10 @@ export const routes: Routes = [
     },
     {
         path: 'library',
-        loadComponent: () => import('./pages/library/library').then(m => m.Library)
+        loadComponent: () => import('./pages/library/library').then(m => m.Libraries)
+    },
+    {
+        path: 'library-list',
+        loadComponent: () => import('./pages/library-list/library-list').then(m => m.LibraryList)
     }
 ];

@@ -1,0 +1,22 @@
+<div class="library-list">
+    <div class="libraryContainer">
+        <div class="lib-top">
+            <h2>List of Member</h2>
+        </div>
+        <div class="lib-bottom">
+            <label>Library Name</label>
+            <select [(ngModel)]="selectedLibrary.libraryName" (ngModelChange)="handleListMembers()" >
+                <option value="">Select library</option>
+                <option *ngFor="let itm of libraryList()">
+                    {{itm.libraryName}}
+                </option>
+            </select>
+        </div>
+        <div class="lib-down">
+            <h2>List of Members</h2>
+            <ul *ngFor="let itm of selectedLibraryMembers(); let i = index">
+                <li>{{i+1}}.{{itm.fullName}}</li>
+            </ul>
+        </div>
+    </div>
+</div>

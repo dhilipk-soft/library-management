@@ -57,9 +57,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of memberList()">
+      <tr *ngFor="let item of memberList();let i = index">
         
-        <td>1</td>
+        <td>{{1+i}}</td>
         <td>{{item.fullName}}</td>
         <td>{{item.email}}</td>
         <td>{{item.phone}}</td>

@@ -1,0 +1,174 @@
+.libraryContainer{
+    padding: 20px;
+    background-color: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    gap:10px
+}
+
+.topContainer{
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.lib-top h1{
+    font-size: 24px;
+    color: #0f172a;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #0ea5e9;
+}
+
+.lib-input{
+    font-weight: 500;
+    color: #1e293b;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 12px;
+}
+
+.nameContainer{
+    display: flex ;
+    gap: 10px;
+    align-items: center;
+}
+
+.nameContainer input{
+    padding: 7px 10px;
+    flex: 1;
+}
+
+.errorName{
+    color:red;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.lib-submit,
+.lib-disableButton{
+    text-align: right;    
+}
+
+.lib-disableButton button{
+    padding: 7px 10px;
+    border-radius: 6px;
+    border:none;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    cursor: not-allowed;
+    background-color: #ccc;
+    color:rgb(53, 51, 51);
+}
+
+.lib-submit button{
+    padding: 7px 10px;
+    border-radius: 6px;
+    border:none;
+    background-color: green;
+    color: whitesmoke;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.lib-bottom{
+    background-color: #ffffff;
+     padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.member-select{
+    border-bottom: 2px solid #0ea5e9;
+    padding-bottom: 20px;
+}
+
+.member-select h1{
+    font-size: 24px;
+    color: #0f172a;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #0ea5e9;
+}
+
+.selection{
+    display: flex;
+    gap: 10px;
+}
+
+.selection select{
+    cursor: pointer;
+}
+
+
+.selection button{
+    padding: 6px 10px;
+    background-color: #0ea5e9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.selection select{  
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    width: 100%;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+.selection button:hover{
+    background-color: #36b6f1;
+    cursor: pointer;
+}
+
+.members-table{
+    display: grid;
+    grid-template-columns: repeat(2, 45%);
+    gap: 10px;
+}
+
+.members-table li{
+    background-color: #ccc;
+    border-radius: 6px;
+    list-style: none;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+li > div{
+    
+    font-size: 16px;
+    font-weight: 550;
+    color: #0f172a;
+}
+
+li > button{
+    background-color: rgb(250, 45, 45);
+    color: white;
+    padding: 6px 9px;
+    border-radius: 6px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    font-size: 12px;
+}
+
+li > button:hover{
+    cursor: pointer;
+    background-color: rgb(243, 95, 95);
+}

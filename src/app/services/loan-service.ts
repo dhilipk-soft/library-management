@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { IAddLoan } from '../models/interface/ILoans';
+import { Observable } from 'rxjs';
+import { IBookWithMember } from '../models/interface/books';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,8 @@ export class LoanService {
 
   constructor(private http: HttpClient) { }
 
-  getAllLoans() {
-    return this.http.get(environment.API_URL+'Loan');
+  getAllLoans():Observable<IBookWithMember[]> {
+    return this.http.get<IBookWithMember[]>(environment.API_URL+'Loan');
   }
 
   createLoan(loan:IAddLoan) {

@@ -4,6 +4,12 @@
   width: 100%;
 }
 
+h2{
+  font-size: 24px;
+  color: #0f172a;
+  margin-bottom: 20px;
+}
+
 .categories-list select {
   padding: 8px 12px;
   border-radius: 6px;
@@ -22,10 +28,4 @@
 .categories-list select:focus {
   border-color: #3f51b5;
   background-color: #fff;
-}
-
-h2 {
-  margin-bottom: 8px;
-  font-size: 20px;
-  color: #333;
 }
