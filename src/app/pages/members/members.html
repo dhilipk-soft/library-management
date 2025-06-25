@@ -1,0 +1,73 @@
+
+<div class="container">
+  <h2 class="title">Library Members</h2>
+
+  <!-- Add Member Form -->
+  <form  class="member-form" (ngSubmit)="addMember(memberForm)" #memberForm="ngForm">
+    <input
+      type="text"
+      name="name"
+      required
+      placeholder="Member Name"
+      [(ngModel)]="newMember.fullName"
+      #name="ngModel"
+    />
+    <div *ngIf="name.invalid && name.touched">
+      Name required
+    </div>
+    <input
+      type="email"
+      name="email"
+      required
+      placeholder="Email"
+      [(ngModel)]="newMember.email"
+      #email ="ngModel"
+    />
+    <div *ngIf="email.invalid && email.touched">
+      Email required
+    </div>
+    <input
+      type="text"
+      name="phone"
+      required
+      placeholder="Phone"
+      [(ngModel)]="newMember.phone"
+      #phone ="ngModel"
+    />
+    <div *ngIf="phone.invalid && phone.touched">
+      Phone required
+    </div>
+    <button type="submit" [disabled]="memberForm.invalid">
+      {{ editMode ? 'Update Member' : 'Add Member' }}
+    </button>
+    <button type="button" (click)="cancelEdit()" *ngIf="editMode">Cancel</button>
+
+
+  </form>
+
+  <!-- Members Table -->
+  <table class="members-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of memberList()">
+        
+        <td>1</td>
+        <td>{{item.fullName}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.phone}}</td>
+        <td class="bookListBtn">
+          <button (click)="deleteMember(item.memberId)">Delete</button>
+          <button (click)="updateMember(item.memberId)" >Edit</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

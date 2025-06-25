@@ -1,0 +1,72 @@
+/* Container Styling */
+.container {
+    padding: 30px;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Title Styling */
+.title {
+    font-size: 24px;
+    color: #0f172a;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #0ea5e9;
+    padding-bottom: 8px;
+}
+
+/* Table Styling */
+.loans-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+}
+
+.loans-table th,
+.loans-table td {
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.loans-table th {
+    background-color: #e2e8f0;
+    color: #1e293b;
+}
+
+.loans-table tbody tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* Action Buttons */
+.loans-table button {
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Return Button */
+.loans-table button:first-child {
+    background-color: #10b981; /* emerald */
+    color: white;
+}
+
+.loans-table button:first-child:hover {
+    background-color: #059669;
+}
+
+/* Delete Button */
+.loans-table button:last-child {
+    background-color: #ef4444; /* red */
+    color: white;
+}
+
+.loans-table button:last-child:hover {
+    background-color: #dc2626;
+}
