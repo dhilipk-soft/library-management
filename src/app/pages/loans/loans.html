@@ -2,6 +2,7 @@
 <div class="container">
   <h2 class="title">Loan Records</h2>
 
+  <div class="loans-table-list">
   <table class="loans-table">
     <thead>
       <tr>
@@ -15,19 +16,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of loanList();let i = index"  >
+      <tr *ngFor="let item of displayLoanList();let i = index"  >
         <td>{{1+i}}</td>
         <td>{{item.title}}</td>
-        <td>{{item.members.length}}</td>
-        <td>2023-10-01</td>
-        <td>2023-10-15</td>
-        <td>2023-10-10</td>
-        <td>
+        <td>{{item.memberName}}</td>
+        <td>{{item.issueDate | date: 'yyyy-MM-dd'}}</td>
+        <td>{{item.dueDate | date: 'yyyy-MM-dd'}}</td>
+        <td>{{item.returnDate | date: 'yyyy-MM-dd'  }}</td>
+        <td class="loan-btn">
           <button>Return</button>
-          <button>Delete</button>
+          <button (click)="deleteLoan(item.loanId)">Delete</button>
         </td>
       </tr>
     </tbody>
   </table>
+  </div>
 </div>
 

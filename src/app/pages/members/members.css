@@ -58,11 +58,21 @@
     background-color: #0284c7;
 }
 
+.members-table-list{
+    max-height: 300px;
+    overflow-y: auto;
+}
+
 /* Table Styling */
 .members-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 15px;
+}
+
+.members-table th{
+    position: sticky;
+    top:0;
 }
 
 .members-table th,

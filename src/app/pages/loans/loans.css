@@ -15,11 +15,21 @@
     padding-bottom: 8px;
 }
 
+.loans-table-list{
+    max-height: 400px;
+    overflow-y:auto;
+}
+
 /* Table Styling */
 .loans-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 15px;
+}
+
+.loans-table th{
+    position: sticky;
+    top:0
 }
 
 .loans-table th,
@@ -69,4 +79,10 @@
 
 .loans-table button:last-child:hover {
     background-color: #dc2626;
+}
+
+.loan-btn{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

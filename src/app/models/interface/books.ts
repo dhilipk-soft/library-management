@@ -1,3 +1,4 @@
+import { ILoanMember } from "./ILoanMembers";
 import { IMember } from "./IMembers";
 
 export interface Book {
@@ -11,11 +12,11 @@ export interface Book {
 }
 
 export interface IBookWithMember {
-   bookId: string;
+  bookId: string;
   title: string;
   author: string;
   publishDate: string; // or Date
   totalCopies: number;
   availableCopies: number;
-  members: IMember[];
+  members: ILoanMember[];
 }

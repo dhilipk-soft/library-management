@@ -20,5 +20,9 @@ export class LoanService {
     return this.http.post(environment.API_URL+'Loan',loan);
   }
 
+  deleteLoan(id: string){
+    return this.http.delete(environment.API_URL+'Loan/'+`${id}`)
+  }
+
   
 }

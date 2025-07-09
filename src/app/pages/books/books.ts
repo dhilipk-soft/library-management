@@ -12,27 +12,37 @@ import { CategoryService } from '../../services/categorie-service';import { Memb
 import { IMember } from '../../models/interface/IMembers';
 import { AddLoan } from '../../models/class/loans';
 import { LoanService } from '../../services/loan-service';
+
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [FormsModule, CommonModule,Categories ],
+  imports: [FormsModule, CommonModule,Categories,MatDialogModule,MatFormFieldModule, MatInputModule ,MatSelectModule, MatButtonModule ],
   templateUrl: './books.html',
   styleUrl: './books.css'
 })
 export class Books implements OnInit {
 
-  memberList = signal<IMember []>([]);
-  reserverPopup = false;
-  editBook = false;
-  editBookId: string | null = null;
-  availableBookList = signal<Book[]>([]);
+  memberList = signal<IMember []>([])
+  reserverPopup = false
+  editBook = false
+  editBookId: string | null = null
+  availableBookList = signal<Book[]>([])
   bookList = signal<Book[]>([]); 
-  newBook: Book = new Book();
+  newBook: Book = new Book()
   filterBookList = signal<Book[]>([])
-  categoryList = signal<Category []> ([]);
-  selectedBookId: string | null = null;
-  selectedMemberId: string | null = null;
+  categoryList = signal<Category []> ([])
+  selectedBookId: string | null = null
+  selectedMemberId: string | null = null
+
+
   constructor( private bookService: BookService) {}
+  
   CategoryService = inject(CategoryService);
   memberService = inject(MemberService);
   loanService = inject(LoanService);
@@ -60,6 +70,8 @@ export class Books implements OnInit {
         this.reserverPopup = false;
         this.newLoan = new AddLoan();
         from.resetForm();
+        this.loadBooks();
+        alert('Reservation successful!');
       },
       error:(error)=>{
         console.log(error);
@@ -106,15 +118,10 @@ export class Books implements OnInit {
 
   //addBook 
   addBook(form : NgForm): void {
-
-   // console.log('addBook')
-
     if(this.editBook){
         this.saveUpdate();
         return;
     }
-
-   // console.log('2addBook')
 
     this.bookService.addBook(this.newBook).subscribe({
       next:()=>{
@@ -136,11 +143,8 @@ export class Books implements OnInit {
       return
     }
 
-    // console.log(id)
-    // console.log(getBook.id);
-
-    this.newBook = { ...getBook };
-    this.editBook = true;
+    this.newBook = { ...getBook }
+    this.editBook = true
     this.editBookId = getBook.id
   }
 

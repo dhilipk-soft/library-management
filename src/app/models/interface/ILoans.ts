@@ -7,6 +7,15 @@ export interface IAddLoan {
 
 export interface ILoan {
 
-  
+}
 
+export interface ILoanDisplay {
+  title: string;
+  loanId: string;
+  memberName: string;
+  memberEmail: string;
+  memberPhone: string;
+  issueDate: string;     // use `Date` if you're working with actual Date objects
+  dueDate: string;
+  returnDate: string;
 }

@@ -3,21 +3,21 @@
 .app-container {
     width: 100%;
     height: 100vh;
-    
 }
 .app-content{
-
     display: flex;
     width: 100%;
+    flex:1;
+    height: 80%;
 }
 
-.app-headera{
-    min-height: 9vh;
+.header{
+    height: 10%;
 }
 
 .app-content :first-child{
     width: 15%;
-    display: flex;
+    flex:1;
     align-items: center;
 }
 
@@ -25,11 +25,15 @@
     width: 85%;
     padding: 20px;
     background-color: #f8fafc; /* light background */
-    min-height: 80vh;
 }
 
 .footer{
-    min-height: 9vh;
-    color:blue;
-    background-color: rgb(255, 4, 4);
+
+    height: 10%;
+    background-color: #0f172a;
+    color: #f8fafc;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    
 }
