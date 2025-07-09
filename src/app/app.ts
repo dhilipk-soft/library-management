@@ -11,5 +11,4 @@ import { Footer } from './components/footer/footer';
   styleUrl: './app.css',
 })
 export class App {
-  protected title = 'librarymanagement';
 }

@@ -4,6 +4,7 @@ import { IBookWithMember } from '../../models/interface/books';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ILoanDisplay } from '../../models/interface/ILoans';
+import { ToastrService } from 'ngx-toastr';
 
 function parseDateString(dateStr: string): Date {
   const [day, month, yearTime] = dateStr.split('-');
@@ -20,41 +21,35 @@ function parseDateString(dateStr: string): Date {
 })
 export class Loans implements OnInit{
 
-  loanList = signal<IBookWithMember []>([])
-
-  loanService = inject(LoanService)
-
+  loanList = signal<ILoanDisplay []>([])
   displayLoanList = signal<ILoanDisplay []>([])
+
+  constructor(private toastr: ToastrService, private loanService: LoanService) {
+  }
 
   ngOnInit(): void {
       this.loadLoanMember()
   }
 
-  loadLoanMember():void {
-      this.loanService.getAllLoans().subscribe((data: IBookWithMember[]) => {
-        this.loanList.set(data)
-        const response = this.loanList().flatMap(
-          book => book.members.map( member => ( {
-            title: book.title,
-            loanId:member.loanId,
-            memberName: member.fullName,
-            memberEmail: member.email,
-            memberPhone: member.phone,
-            issueDate: member.issueDate, 
-            dueDate: member.dueTime,
-            returnDate: member.returnDate
-          }))
-        )
+ loadLoanMember(): void {
+  this.loanService.getAllLoans().subscribe({
+    next: (data: ILoanDisplay[]) => {
+      this.loanList.set(data);
+      this.displayLoanList.set(data); // Directly use the flat list
+      console.log(this.loanList());
+    },
+    error: (err) => {
+      console.error('Failed to load loans:', err);
+    }
+  });
+}
 
-        this.displayLoanList.set(response);
-        console.log(this.displayLoanList());
-      })
-  }
 
   deleteLoan(id:string):void{
     this.loanService.deleteLoan(id).subscribe({
       next: (data) => {
         console.log(data);
+        this.toastr.success("successfully deleted....")
         this.loadLoanMember()
       },
       error: (error) => {
@@ -65,6 +60,21 @@ export class Loans implements OnInit{
     
   }
 
-  
-
+  returnLoan(id: string){
+    this.loanService.returnLoan(id).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.toastr.success("successfully returned....")
+        this.loadLoanMember();
+      },
+       error: err => {
+        console.log(err)
+    if (err.status === 400 || err.status === 404) {
+      this.toastr.error(err.error.message);
+    } else {
+      this.toastr.error('Unexpected error occurred.');
+    }
+  }
+    })
+  }
 }

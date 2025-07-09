@@ -28,12 +28,10 @@
 }
 
 .footer{
-
     height: 10%;
     background-color: #0f172a;
     color: #f8fafc;
     align-items: center;
     display: flex;
     justify-content: center;
-    
 }

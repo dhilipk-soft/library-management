@@ -19,12 +19,12 @@
       <tr *ngFor="let item of displayLoanList();let i = index"  >
         <td>{{1+i}}</td>
         <td>{{item.title}}</td>
-        <td>{{item.memberName}}</td>
+        <td>{{item.fullName}}</td>
         <td>{{item.issueDate | date: 'yyyy-MM-dd'}}</td>
-        <td>{{item.dueDate | date: 'yyyy-MM-dd'}}</td>
+        <td>{{item.dueTime| date: 'yyyy-MM-dd'}}</td>
         <td>{{item.returnDate | date: 'yyyy-MM-dd'  }}</td>
         <td class="loan-btn">
-          <button>Return</button>
+          <button (click)="returnLoan(item.loanId)" *ngIf="!item.returnDate">Return</button>
           <button (click)="deleteLoan(item.loanId)">Delete</button>
         </td>
       </tr>

@@ -20,3 +20,20 @@ export interface IBookWithMember {
   availableCopies: number;
   members: ILoanMember[];
 }
+
+export interface ILoanDisplay {
+  loanId: string;
+
+  bookId: string;
+  title: string;
+  author: string;
+
+  memberId: string;
+  fullName: string;
+  email: string;
+  phone: string;
+
+  issueDate: string;    
+  dueTime: string;      
+  returnDate: string | null;
+}

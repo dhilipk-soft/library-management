@@ -10,12 +10,15 @@ export interface ILoan {
 }
 
 export interface ILoanDisplay {
-  title: string;
   loanId: string;
-  memberName: string;
-  memberEmail: string;
-  memberPhone: string;
-  issueDate: string;     // use `Date` if you're working with actual Date objects
-  dueDate: string;
-  returnDate: string;
+  bookId: string;
+  title: string;
+  author: string;
+  memberId: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  issueDate: string;   // or Date
+  dueTime: string;     // or Date
+  returnDate: string | null;
 }
