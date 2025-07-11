@@ -49,7 +49,7 @@ export class Loans implements OnInit{
     this.loanService.deleteLoan(id).subscribe({
       next: (data) => {
         console.log(data);
-        this.toastr.success("successfully deleted....")
+        alert("successfully deleted....")
         this.loadLoanMember()
       },
       error: (error) => {
@@ -64,15 +64,15 @@ export class Loans implements OnInit{
     this.loanService.returnLoan(id).subscribe({
       next: (data) => {
         console.log(data);
-        this.toastr.success("successfully returned....")
+        alert("successfully returned....")
         this.loadLoanMember();
       },
        error: err => {
         console.log(err)
     if (err.status === 400 || err.status === 404) {
-      this.toastr.error(err.error.message);
+      alert(err.error.message);
     } else {
-      this.toastr.error('Unexpected error occurred.');
+      alert('Unexpected error occurred.');
     }
   }
     })

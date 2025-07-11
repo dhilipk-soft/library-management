@@ -8,7 +8,7 @@
     display: flex;
     width: 100%;
     flex:1;
-    height: 80%;
+    height: 85%;
 }
 
 .header{
@@ -23,12 +23,12 @@
 
 .main-content{
     width: 85%;
-    padding: 20px;
+    padding: 15px;
     background-color: #f8fafc; /* light background */
 }
 
 .footer{
-    height: 10%;
+    height: 5%;
     background-color: #0f172a;
     color: #f8fafc;
     align-items: center;

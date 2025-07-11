@@ -1,98 +1,169 @@
-
-  <div class="books-containers">
-    <div class="books-con-left">
-      <div class="con-left-top">
-        <app-categories (categorySelected)="handleFilterBooks($event)"></app-categories>
-      </div>
-      <div class="con-left-top">
-        <div class="books-tp">
-        <h1>Books</h1>
-        </div>
-        <div class="books-list">
-          <table>
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Category</th>
-                <th>Published Date</th>
-                <th>Available Copies</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of filterBookList()">
-                <td>{{ item.title | titlecase }}</td>
-                <td>{{ item.author | titlecase }}</td>
-                <td>{{ getCategoryName(item.categoryId)| titlecase }}</td>
-                <td>{{ item.publishDate  }}</td>
-                <td>{{ (item.availableCopies === 0)?"Not Available":item.availableCopies }}</td>
-                <td class="bookListBtn">
-                  <button (click)="reserveBook(item.id)" [ngClass]="{'out-of-stock': item.availableCopies === 0  }"  [disabled]="item.availableCopies === 0">Get</button>
-                  <button (click)="updateBook(item.id)">Edit</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      
+<div class="books-containers">
+  <div class="books-con-left">
+    <div class="con-left-top">
+      <app-categories (categorySelected)="handleFilterBooks($event)"
+        (librarySelected)="handleFilterLibraries($event)"></app-categories>
     </div>
-    <div class="books-con-right">
+    <div class="con-left-top">
       <div class="books-tp">
-        <h1>Add Book</h1>
+        <h2>Books</h2>
       </div>
-      <form (ngSubmit)="addBook(bookForm)"  #bookForm="ngForm">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required [(ngModel)]="newBook.title" />
-        
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author" required [(ngModel)]="newBook.author" />
-
-        <label for="category">Category:</label>
-        <select [(ngModel)]="newBook.categoryId" id="category" class="category" name="category" required >
-          <option value=""> All Categories</option>
-          <option *ngFor="let itm of categoryList()" [value]="itm.categoryId">
-            {{ itm.categoryName | titlecase  }}
-          </option>
-        </select>
-
-        <label for="copies">Total Copies:</label>
-        <input type="text" id="copies" name="copies" required [(ngModel)]="newBook.totalCopies" />
-
-        <button type="submit" >{{ editBook ? 'Update' : 'Add' }}</button>
-      </form>
+      <div class="books-list">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Published Date</th>
+              <th>Available Copies</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of filterBookList()">
+              <td>{{ item.title | titlecase }}</td>
+              <td>{{ item.author | titlecase }}</td>
+              <td>{{ getCategoryName(item.categoryId)| titlecase }}</td>
+              <td>{{ item.publishDate }}</td>
+              <td>
+                {{ (item.availableCopies === 0)?"Not Available":item.availableCopies }}
+              </td>
+              <td class="bookListBtn">
+                <button (click)="reserveBook(item.id)" [ngClass]="{'out-of-stock': item.availableCopies === 0  }"
+                  [disabled]="item.availableCopies === 0">
+                  Get
+                </button>
+                <button (click)="updateBook(item.id)">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-
-    
-    <div *ngIf="reserverPopup" class="popup-overlay">
-      <div class="popup-content">
-        <h2>Reserve a Book</h2>
-        <form (ngSubmit)="handleReserve(reservForm)" #reservForm="ngForm">
-          <label>Select Book:</label>
-          <select [(ngModel)]="newLoan.bookId" name="book" required>
-            <option *ngFor="let item of availableBookList()" [value]="item.id">
-              {{ item.title }}
-            </option>
-          </select>
-
-          <label>Select Member:</label>
-          <select [(ngModel)]="newLoan.memberId" name="member" required>
-            <option value="" disabled selected>Select a member</option>
-            <option *ngFor="let item of memberList()" [value]="item.memberId">
-              {{ item.fullName }}
-            </option>
-          </select>
-
-          <label>Select Due date:</label>
-          <input type="date" [(ngModel)]="newLoan.dueTime" name="dueDate" required />
-
-          <div class="popup-actions">
-            <button type="submit" [disabled]="reservForm.invalid ">Reserve</button>
-            <button type="button" (click)="reserverPopup = false">Cancel</button>
-          </div>
-        </form>
-      </div>
+  <div class="books-con-right">
+    <div class="books-tp">
+      <h1>Add Book</h1>
     </div>
+    <form [formGroup]="bookForm" (ngSubmit)="addBook()" #form="ngForm">
+      <div  class="form-wrapper">
+        <mat-form-field subscriptSizing="dynamic" appearance="outline" class="form-field">
+          <mat-label >Title:</mat-label>
+          <input matInput formControlName="title" />
+          <mat-error *ngIf="bookForm.get('title')?.hasError('required')">
+            Title is required
+          </mat-error>
+        </mat-form-field>
+      </div>
 
+      <div>
+        <mat-form-field subscriptSizing="dynamic" appearance="outline" class="form-field">
+          <mat-label>Author:</mat-label>
+          <input matInput formControlName="author" />
+          <mat-error *ngIf="bookForm.get('author')?.hasError('required')">
+            Author is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field subscriptSizing="dynamic" appearance="outline" class="form-field">
+          <mat-label>Select Library:</mat-label>
+          <mat-select formControlName="libraryId">
+            <mat-option *ngFor="let item of libraryList()" [value]="item.libraryId">
+              {{item.libraryName | titlecase}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="bookForm.get('libraryId')?.hasError('required')">select onr library</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field subscriptSizing="dynamic" appearance="outline" class="form-field">
+          <mat-label>Select Cateory:</mat-label>
+          <mat-select formControlName="categoryId">
+            <mat-option *ngFor="let item of categoryList()" [value]="item.categoryId">
+              {{item.categoryName| titlecase}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="bookForm.get('categoryId')?.hasError('required')"> Select one category</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field subscriptSizing="dynamic" appearance="outline" class="form-field">
+          <mat-label>Total Copies:</mat-label>
+          <input matInput type="number"  formControlName="totalCopies" />
+          <mat-error *ngIf="bookForm.get('totalCopies')?.hasError('required')">
+            Total copies is required
+          </mat-error>
+          <mat-error *ngIf="bookForm.get('totalCopies')?.hasError('min')">
+            At least one copy is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button type="submit" [disabled]="bookForm.invalid">
+        {{editBook ? "Update Book" : " Add Book"}}
+      </button>
+    </form>
+
+    <!-- <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required [(ngModel)]="newBook.title" />
+
+      <label for="author">Author:</label>
+      <input type="text" id="author" name="author" required [(ngModel)]="newBook.author" />
+
+      <label for="library">Libraries:</label>
+      <select [(ngModel)]="newBook.libraryId" id="library" class="library" name="library" required>
+        <option value="">All Libraries</option>
+        <option *ngFor="let itm of libraryList()" [value]="itm.libraryId">
+          {{ itm.libraryName| titlecase }}
+        </option>
+      </select>
+
+      <label for="category">Category:</label>
+      <select [(ngModel)]="newBook.categoryId" id="category" class="category" name="category" required>
+        <option value="">All Categories</option>
+        <option *ngFor="let itm of categoryList()" [value]="itm.categoryId">
+          {{ itm.categoryName | titlecase }}
+        </option>
+      </select>
+
+      <label for="copies">Total Copies:</label>
+      <input type="text" id="copies" name="copies" required [(ngModel)]="newBook.totalCopies" />
+
+      <button type="submit">{{ editBook ? 'Update' : 'Add' }}</button> -->
+  </div>
+</div>
+
+<div *ngIf="reserverPopup" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Reserve a Book</h2>
+    <form (ngSubmit)="handleReserve(reservForm)" #reservForm="ngForm">
+      <label>Select Book:</label>
+      <select [(ngModel)]="newLoan.bookId" name="book" required>
+        <option *ngFor="let item of availableBookList()" [value]="item.id">
+          {{ item.title }}
+        </option>
+      </select>
+
+      <label>Select Member:</label>
+      <select [(ngModel)]="newLoan.memberId" name="member" required>
+        <option value="" disabled selected>Select a member</option>
+        <option *ngFor="let item of memberList()" [value]="item.memberId">
+          {{ item.fullName }}
+        </option>
+      </select>
+
+      <label>Select Due date:</label>
+      <input type="date" [(ngModel)]="newLoan.dueTime" name="dueDate" required />
+
+      <div class="popup-actions">
+        <button type="submit" [disabled]="reservForm.invalid ">Reserve</button>
+        <button type="button" (click)="reserverPopup = false">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

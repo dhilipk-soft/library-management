@@ -1,24 +1,44 @@
 import { IMember } from "../interface/IMembers";
 
 export class Book {
-  bookId: string;
+  id: string; 
   title: string;
   author: string;
-  publishDate: string; // use Date if you prefer
+  publishDate: Date; // use Date if you prefer
   totalCopies: number;
   availableCopies: number;
-  id: string;
   categoryId: string;
+  libraryId: string;
+
+  constructor() {
+    this.id = '';
+    this.title = '';
+    this.author = '';
+    this.publishDate = new Date(); // or new Date().toISOString() if you use Date
+    this.totalCopies = 0;
+    this.availableCopies = 0;
+    this.categoryId = '';
+    this.libraryId = '';
+  }
+}
+
+export class NewUpdateBook {
+   bookId: string;
+  title: string;
+  author: string;
+  totalCopies: number;
+  availableCopies: number;
+  categoryId: string;
+  libraryId: string;
 
   constructor() {
     this.bookId = '';
     this.title = '';
     this.author = '';
-    this.publishDate = ''; // or new Date().toISOString() if you use Date
     this.totalCopies = 0;
     this.availableCopies = 0;
-    this.id = '';
     this.categoryId = '';
+    this.libraryId = '';
   }
 }
 

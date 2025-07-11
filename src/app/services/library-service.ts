@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ILibrary, ILibraryShow } from '../models/interface/ILibrary';
+import { ILibrary, ILibraryDetail, ILibraryShow } from '../models/interface/ILibrary';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -21,5 +21,9 @@ export class LibraryService {
 
   createLibrary(library: ILibrary): Observable<ILibrary> {
     return this.http.post<ILibrary>(environment.API_URL+'Library', library)
+  }
+
+  getAllLibrariesName():Observable<ILibraryDetail[]> {
+    return this.http.get<ILibraryDetail[]>("https://localhost:7133/GetAllLibrariesName") ;
   }
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Book } from '../models/class/books';
 import { environment } from '../../environments/environment.development';
+import { UpdateBook } from '../models/interface/books';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class BookService {
  constructor(private http: HttpClient) {}
 
   getAllBooks(): Observable<Book[]> {
+    
     return this.http.get<Book[]>(environment.API_URL + 'Book');
   }
 
@@ -24,7 +26,7 @@ export class BookService {
     return this.http.post<Book>(environment.API_URL + 'Book', book);
   }
 
-  updateBook(book: Book): Observable<Book> {
-    return this.http.put<Book>(environment.API_URL + 'Book/' + `${book.id}`, book);
+  updateBook(book: UpdateBook): Observable<UpdateBook> {
+    return this.http.put<UpdateBook>(environment.API_URL + 'Book/' + `${book.bookId}`, book);
   }
 }

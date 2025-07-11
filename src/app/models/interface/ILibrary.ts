@@ -9,3 +9,8 @@ export interface ILibraryShow {
   libraryName: string;
   members: IMember[];
 }
+
+export interface ILibraryDetail{
+  libraryName: string;
+  libraryId: string;
+}

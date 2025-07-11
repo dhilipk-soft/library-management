@@ -22,17 +22,16 @@
     width: 20%;
 }
 
-.books-tp {
-    margin-bottom: 20px;
-    font-size: 22px;
+.books-tp h2{
+    margin-bottom: 16px;
+    font-size: 24px;
     border-bottom: 2px solid #0ea5e9;
-    padding-bottom: 10px;
     color: #0f172a;
 }
 
 
 .books-list {
-    max-height: 300px ;
+    max-height: 375px ;
     overflow-y:auto;
 }
 
@@ -66,7 +65,7 @@
 .books-con-right form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 9px;
 }
 
 .books-con-right label {
@@ -101,44 +100,54 @@
 .books-con-right button:hover {
     background-color: #0284c7;
 }
-.bookListBtn{
+
+.bookListBtn {
     display: flex;
     flex-direction: column;
+    height: 100%;
     align-items: center;
     justify-content: center;
-    gap: 10px
+    gap: 8px;
 }
 
-.bookListBtn button{
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
+.bookListBtn button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.bookListBtn :first-child{
-    background-color: #0284c7;
-    color:white;
+.bookListBtn button:first-child {
+  background-color: #0284c7;
+  color: white;
 }
 
-.bookListBtn :first-child:hover{
-    background-color: #1caff8;
+.bookListBtn button:first-child:hover {
+  background-color: #1caff8;
 }
 
-.bookListBtn :last-child{
-    background-color: #0f172a ;
-    color: white;
+.bookListBtn button:last-child {
+  background-color: #0f172a;
+  color: white;
 }
 
-.bookListBtn :last-child:hover{
-    background-color: #1b263d;
+.bookListBtn button:last-child:hover {
+  background-color: #1b263d;
+}
+
+.bookListBtn button.out-of-stock {
+  background-color: #e5e7eb; /* light gray */
+  color: #9ca3af; /* gray text */
+  cursor: not-allowed;
 }
 
 
+.library,
 .category{
-    padding: 10px;
+    padding: 9px;
     border-radius: 6px;
     border-color: 1px solid #e2e8f0; 
 }
@@ -173,14 +182,14 @@
 .popup-content input,
 .popup-content select
 {
-    padding: 10px;
+    padding: 9px;
     border-radius: 7px;
     font-size: 16px;
 }
 
 .popup-content h2 {
   margin-top: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
   font-size: 1.5rem;
   text-align: center;
   border-bottom: 2px solid #0284c7;
@@ -195,7 +204,7 @@
 .popup-content form select,
 .popup-content form input {
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: 0.9rem;
   padding: 0.5rem;
 }
 
@@ -230,4 +239,9 @@
     background-color: #8ab8cf !important;
     cursor:not-allowed !important;
     color: #cf7c7c;
+}   
+.form-field {
+  width: 100%;
+  margin-bottom: 8px;
+  font-size: 13px;
 }

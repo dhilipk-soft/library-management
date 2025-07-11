@@ -1,7 +1,7 @@
 import { ILoanMember } from "./ILoanMembers";
 import { IMember } from "./IMembers";
 
-export interface Book {
+export interface IBook {
   bookId: string;
   title: string;
   author: string;
@@ -9,6 +9,7 @@ export interface Book {
   totalCopies: number;
   availableCopies: number;
   categoryId: string;
+  libraryId: string;
 }
 
 export interface IBookWithMember {
@@ -36,4 +37,24 @@ export interface ILoanDisplay {
   issueDate: string;    
   dueTime: string;      
   returnDate: string | null;
+}
+
+export interface UpdateBook{
+  bookId: string;
+  title: string;
+  author: string;
+  totalCopies: number;
+  availableCopies: number;
+  categoryId: string;
+  libraryId: string;
+}
+
+export interface BookFormModel {
+  title: string;
+  author: string;
+  publishDate: Date;
+  totalCopies: number;
+  availableCopies: number;
+  categoryId: string;
+  libraryId: string;
 }
