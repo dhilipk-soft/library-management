@@ -1,8 +1,7 @@
 
-
 .app-container {
     width: 100%;
-    height: 100vh;
+    height: 100%;
 }
 .app-content{
     display: flex;
@@ -14,15 +13,26 @@
 .header{
     height: 10%;
 }
+.app-container{
+    background-color: #1e293b;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-wrapper.collapse{
+    width: 204px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
 
 .app-content :first-child{
-    width: 15%;
-    flex:1;
+    padding: 0 20px;
     align-items: center;
+    width: fit-content;
 }
 
 .main-content{
-    width: 85%;
+    flex:1;
     padding: 15px;
     background-color: #f8fafc; /* light background */
 }

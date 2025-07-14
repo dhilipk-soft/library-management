@@ -1,0 +1,23 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+html {
+  color-scheme: light dark;
+  @include mat.theme((
+    color: mat.$violet-palette,
+    typography: Roboto,
+  ));
+};
+
+$compate-theme: mat.define-theme(
+  (
+    density:(
+      scale:-4
+    )
+  )
+);
+
+:root{
+  @include mat.form-field-density($compate-theme)
+}

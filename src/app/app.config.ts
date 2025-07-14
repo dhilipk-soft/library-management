@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,7 +14,13 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(), 
      provideHttpClient(withFetch()),
-    
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+        useValue: { 
+          appearance: 'outline',
+          subscriptSizing: 'dynamic'
+         }
+    },
     importProvidersFrom(BrowserAnimationsModule),
     provideToastr()
   ]

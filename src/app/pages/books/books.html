@@ -48,7 +48,7 @@
     </div>
     <form [formGroup]="bookForm" (ngSubmit)="addBook()" #form="ngForm">
       <div  class="form-wrapper">
-        <mat-form-field subscriptSizing="dynamic" appearance="outline" class="form-field">
+        <mat-form-field subscriptSizing="dynamic" class="form-field">
           <mat-label >Title:</mat-label>
           <input matInput formControlName="title" />
           <mat-error *ngIf="bookForm.get('title')?.hasError('required')">
@@ -58,7 +58,7 @@
       </div>
 
       <div>
-        <mat-form-field subscriptSizing="dynamic" appearance="outline" class="form-field">
+        <mat-form-field subscriptSizing="dynamic" class="form-field">
           <mat-label>Author:</mat-label>
           <input matInput formControlName="author" />
           <mat-error *ngIf="bookForm.get('author')?.hasError('required')">
@@ -68,7 +68,7 @@
       </div>
 
       <div>
-        <mat-form-field subscriptSizing="dynamic" appearance="outline" class="form-field">
+        <mat-form-field subscriptSizing="dynamic" class="form-field">
           <mat-label>Select Library:</mat-label>
           <mat-select formControlName="libraryId">
             <mat-option *ngFor="let item of libraryList()" [value]="item.libraryId">
@@ -80,7 +80,7 @@
       </div>
 
       <div>
-        <mat-form-field subscriptSizing="dynamic" appearance="outline" class="form-field">
+        <mat-form-field subscriptSizing="dynamic" class="form-field">
           <mat-label>Select Cateory:</mat-label>
           <mat-select formControlName="categoryId">
             <mat-option *ngFor="let item of categoryList()" [value]="item.categoryId">
@@ -92,7 +92,7 @@
       </div>
 
       <div>
-        <mat-form-field subscriptSizing="dynamic" appearance="outline" class="form-field">
+        <mat-form-field subscriptSizing="dynamic" class="form-field">
           <mat-label>Total Copies:</mat-label>
           <input matInput type="number"  formControlName="totalCopies" />
           <mat-error *ngIf="bookForm.get('totalCopies')?.hasError('required')">
@@ -108,33 +108,6 @@
         {{editBook ? "Update Book" : " Add Book"}}
       </button>
     </form>
-
-    <!-- <label for="title">Title:</label>
-      <input type="text" id="title" name="title" required [(ngModel)]="newBook.title" />
-
-      <label for="author">Author:</label>
-      <input type="text" id="author" name="author" required [(ngModel)]="newBook.author" />
-
-      <label for="library">Libraries:</label>
-      <select [(ngModel)]="newBook.libraryId" id="library" class="library" name="library" required>
-        <option value="">All Libraries</option>
-        <option *ngFor="let itm of libraryList()" [value]="itm.libraryId">
-          {{ itm.libraryName| titlecase }}
-        </option>
-      </select>
-
-      <label for="category">Category:</label>
-      <select [(ngModel)]="newBook.categoryId" id="category" class="category" name="category" required>
-        <option value="">All Categories</option>
-        <option *ngFor="let itm of categoryList()" [value]="itm.categoryId">
-          {{ itm.categoryName | titlecase }}
-        </option>
-      </select>
-
-      <label for="copies">Total Copies:</label>
-      <input type="text" id="copies" name="copies" required [(ngModel)]="newBook.totalCopies" />
-
-      <button type="submit">{{ editBook ? 'Update' : 'Add' }}</button> -->
   </div>
 </div>
 

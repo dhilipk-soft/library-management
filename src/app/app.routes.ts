@@ -29,5 +29,9 @@ export const routes: Routes = [
     {
         path: 'library-list',
         loadComponent: () => import('./pages/library-list/library-list').then(m => m.LibraryList)
+    },
+    {
+        path: 'form-builder',
+        loadComponent: () => import('./pages/form-builder/form-builder').then(m => m.FormBuilder)
     }
 ];
