@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { FormModuleModule } from './modules/form-module/form-module-module';
+import { FormCreate } from './pages/form-create/form-create';
+
 
 export const routes: Routes = [
   {
@@ -42,6 +43,6 @@ export const routes: Routes = [
   },
   { 
     path: 'form-create',
-    component: FormModuleModule
+    component: FormCreate
   }
 ];
