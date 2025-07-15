@@ -99,7 +99,7 @@
             ],
             "styles": [
               "src/theme/custom-theme.scss",
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

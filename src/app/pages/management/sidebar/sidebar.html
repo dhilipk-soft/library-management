@@ -1,0 +1,34 @@
+<div class="sidebar-container" [ngClass]="{'collapse':toogleBar}">
+  <ul>
+    <li>
+      <a routerLink="/management/books" routerLinkActive="active-link" class="icon">
+        <mat-icon>menu_book</mat-icon>
+        <div *ngIf="!toogleBar" >Books</div>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/management/loans" routerLinkActive="active-link" class="icon">
+        <mat-icon>assignment</mat-icon>
+         <div *ngIf="!toogleBar" >Loans</div>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/management/members" routerLinkActive="active-link" class="icon">
+        <mat-icon>group</mat-icon>
+         <div *ngIf="!toogleBar" >Members</div>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/management/library" routerLinkActive="active-link" class="icon">
+        <mat-icon>local_library</mat-icon>
+         <div *ngIf="!toogleBar" >Create Library</div>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/management/library-list" routerLinkActive="active-link" class="icon">
+        <mat-icon>library_books</mat-icon>
+         <div *ngIf="!toogleBar" >Library List</div>
+      </a>
+    </li>
+  </ul>
+</div>
