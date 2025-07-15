@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { IAddLoan, ILoanDisplay } from '../models/interface/ILoans';
 import { Observable } from 'rxjs';
-import { IBookWithMember } from '../models/interface/books';
+import { environment } from '../../../environments/environment.development';
+import { ILoanDisplay } from '../../models/interface/books';
+import { IAddLoan } from '../../models/interface/ILoans';
 
 @Injectable({
   providedIn: 'root'

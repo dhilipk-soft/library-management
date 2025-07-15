@@ -6,6 +6,7 @@ import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { FormModuleModule } from './modules/form-module/form-module-module';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,7 +22,10 @@ export const appConfig: ApplicationConfig = {
           subscriptSizing: 'dynamic'
          }
     },
-    importProvidersFrom(BrowserAnimationsModule),
+    importProvidersFrom(
+      BrowserAnimationsModule,
+      FormModuleModule
+    ),
     provideToastr()
   ]
 };

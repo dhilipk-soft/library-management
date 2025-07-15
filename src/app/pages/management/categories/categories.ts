@@ -1,10 +1,10 @@
 
 import { Component, inject, OnInit, signal , Output, EventEmitter  } from '@angular/core';
-import { CategoryService } from '../../../services/categorie-service';
+import { CategoryService } from '../../../services/management/categorie-service';
 import {Category} from '../../../models/class/categories';
 import { CommonModule } from '@angular/common';
 import { ILibraryDetail } from '../../../models/interface/ILibrary';
-import { LibraryService } from '../../../services/library-service';
+import { LibraryService } from '../../../services/management/library-service';
 
 @Component({
   selector: 'app-categories',

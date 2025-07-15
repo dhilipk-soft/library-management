@@ -1,19 +1,23 @@
-<div class="p-30 bg-blue-100 text-black shadow-md">
-  <!-- Header -->
-  <div class="text-center mb-4">
-    <h1 class="font-bold text-2xl">Angular Forms Designer</h1>
-    <p class="text-sm">Create your form using Angular Material and Tailwind</p>  
-  </div>
+<div class="p-4 h-full bg-blue-100 text-black w-full">
+  <div class=" p-4 ">
+    <!-- Header -->
+    <div class="text-center mb-4">
+      <h1 class="font-bold text-2xl">Angular Forms Designer</h1>
+      <p class="text-sm">Create your form using Angular Material and Tailwind</p>
+    </div>
 
-  <!-- Layout -->
-  <div class="flex justify-between gap-4">
-    <!-- Sidebar Left -->
-    <form-element-menu class="w-64 bg-white shadow rounded p-2"></form-element-menu>
+    <!-- Layout -->
+    <div class="flex justify-between gap-4"
+    cdkDropListGroup
+    >
+      <!-- Sidebar Left -->
+      <form-element-menu  class="w-64 bg-white shadow rounded p-2"></form-element-menu>
 
-    <!-- Canvas Center -->
-    <form-canvas class="flex-1 bg-white shadow rounded p-2"></form-canvas>
+      <!-- Canvas Center -->
+      <form-canvas class="flex-1 bg-white shadow rounded p-2"></form-canvas>
 
-    <!-- Sidebar Right -->
-    <form-setting class="w-64 bg-white shadow rounded p-2"></form-setting>
+      <!-- Sidebar Right -->
+      <form-setting class="w-64 bg-white shadow rounded p-2"></form-setting>
+    </div>
   </div>
 </div>

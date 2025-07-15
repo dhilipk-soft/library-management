@@ -1,10 +1,10 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MemberService } from '../../../services/member-service';
+import { MemberService } from '../../../services/management//member-service';
 import { IMember } from '../../../models/interface/IMembers';
 import { CommonModule } from '@angular/common';
-import { ILibrary, ILibraryShow } from '../../../models/interface/ILibrary';
-import { LibraryService } from '../../../services/library-service';
+import {  ILibraryShow } from '../../../models/interface/ILibrary';
+import { LibraryService } from '../../../services/management//library-service';
 import { Library } from '../../../models/class/Library';
 
 @Component({
