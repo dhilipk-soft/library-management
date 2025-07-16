@@ -67,7 +67,7 @@ export class Members implements OnInit{
       alert("Member not found");
       return;
     }
-      this.newMember = { ...getMember };
+      this.newMember = { ...getMember,password: '' };
       this.editMode = true;
       this.editId = id;
   }

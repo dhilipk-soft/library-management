@@ -21,6 +21,7 @@
     flex-wrap: wrap;
     gap: 15px;
     margin-bottom: 30px;
+    align-items: center;
 }
 
 .member-form input {

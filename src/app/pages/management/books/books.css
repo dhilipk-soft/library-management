@@ -28,9 +28,8 @@
     color: #0f172a;
 }
 
-
 .books-list {
-    max-height: 375px ;
+    max-height: 350px ;
     overflow-y:auto;
 }
 
@@ -143,7 +142,6 @@
   cursor: not-allowed;
 }
 
-
 .library,
 .category{
     padding: 9px;
@@ -239,6 +237,7 @@
     cursor:not-allowed !important;
     color: #cf7c7c;
 }   
+
 .form-field {
   width: 100%;
   margin-bottom: 8px;
