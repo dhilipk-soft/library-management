@@ -51,7 +51,7 @@
         <mat-form-field subscriptSizing="dynamic" class="form-field">
           <mat-label >Title:</mat-label>
           <input matInput formControlName="title" />
-          <mat-error *ngIf="bookForm.get('title')?.hasError('required')">
+          <mat-error *ngIf="bookForm.get('title')?.hasError('required') && (bookForm.get('title')?.touched || bookForm.get('title')?.dirty)">
             Title is required
           </mat-error>
         </mat-form-field>
@@ -61,7 +61,7 @@
         <mat-form-field subscriptSizing="dynamic" class="form-field">
           <mat-label>Author:</mat-label>
           <input matInput formControlName="author" />
-          <mat-error *ngIf="bookForm.get('author')?.hasError('required')">
+          <mat-error *ngIf="bookForm.get('author')?.hasError('required')&& (bookForm.get('author')?.touched || bookForm.get('author')?.dirty)">
             Author is required
           </mat-error>
         </mat-form-field>
@@ -75,7 +75,8 @@
               {{item.libraryName | titlecase}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="bookForm.get('libraryId')?.hasError('required')">select onr library</mat-error>
+          <mat-error *ngIf="bookForm.get('libraryId')?.hasError('required') && (bookForm.get('libraryId')?.touched || bookForm.get('libraryId')?.dirty)">
+            select onr library</mat-error>
         </mat-form-field>
       </div>
 
@@ -87,7 +88,8 @@
               {{item.categoryName| titlecase}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="bookForm.get('categoryId')?.hasError('required')"> Select one category</mat-error>
+          <mat-error *ngIf="bookForm.get('categoryId')?.hasError('required') && (bookForm.get('categoryId')?.touched || bookForm.get('categoryId')?.dirty)"> 
+            Select one category</mat-error>
         </mat-form-field>
       </div>
 
@@ -95,7 +97,7 @@
         <mat-form-field subscriptSizing="dynamic" class="form-field">
           <mat-label>Total Copies:</mat-label>
           <input matInput type="number"  formControlName="totalCopies" />
-          <mat-error *ngIf="bookForm.get('totalCopies')?.hasError('required')">
+          <mat-error *ngIf="bookForm.get('totalCopies')?.hasError('required') && (bookForm.get('totalCopies')?.touched || bookForm.get('totalCopies')?.dirty)">
             Total copies is required
           </mat-error>
           <mat-error *ngIf="bookForm.get('totalCopies')?.hasError('min')">

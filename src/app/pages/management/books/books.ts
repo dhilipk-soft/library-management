@@ -259,6 +259,15 @@ export class Books implements OnInit {
 
   resetForm(): void {
   this.bookForm.reset();
+
+  this.bookForm.patchValue({
+    title: '',
+    author: '',
+    totalCopies: 0,
+    categoryId: '',
+    libraryId: '',
+  });
+
   this.bookForm.markAsPristine();
   this.bookForm.markAsUntouched();
   this.bookForm.updateValueAndValidity();

@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Auth } from '../../services/Auth/auth';
 import { ILoginResponse } from '../../models/interface/loginResponse';
 import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +25,7 @@ export class LoginComponent {
       (response: ILoginResponse) => {
         this.logResponse = response;
         console.log('Login successful', response);
-        localStorage.setItem('token', response.accessToken)
+        localStorage.setItem('accessToken', response.accessToken)
         localStorage.setItem('refreshToken', response.refreshToken)
         localStorage.setItem('expiresAt', response.expiresAt)
         this.password = ""
@@ -38,7 +37,7 @@ export class LoginComponent {
       },
       (error) => {
         console.error('Login failed', error);
-        // Handle login error, e.g., display error message to user
+        // Handle  login error, e.g., display error message to user
       }
     );
     // Call backend login API here

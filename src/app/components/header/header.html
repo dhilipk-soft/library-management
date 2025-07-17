@@ -1,7 +1,27 @@
 <div class="headerContainer">
-    <div class="menu">
-        <mat-icon (click)="handleToggle()"> menu </mat-icon>
-    </div>
-    <div class="header">Library Management System</div>
+  <div class="menu">
+    <mat-icon (click)="handleToggle()">menu</mat-icon>
+  </div>
+
+  <div class="header">Library Management System</div>
+
+  <div class="profile">
+    <mat-icon class="profile-icon" (click)="openProfile()" [innerHTML]="'account_circle'" ></mat-icon>
+  </div>
 </div>
 
+@if (profile) {
+    <div class="profile-wrapper">
+  <div class="profile-popup">
+    <div class="profile-row" (click)="profileTab()">
+      <mat-icon class="profile-log">account_circle</mat-icon>
+      <p>Profile</p>
+    </div>
+    <div class="profile-row" (click)="logout()">
+      <mat-icon class="profile-logout">logout</mat-icon>
+      <p>Logout</p>
+    </div>
+  </div>
+</div>
+
+}

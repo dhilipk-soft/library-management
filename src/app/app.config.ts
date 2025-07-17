@@ -1,26 +1,34 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch  } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors, withInterceptorsFromDi  } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FormModuleModule } from './modules/form-module/form-module-module';
+import { authInterceptor } from '../core/auth-interceptor';
+import { AuthErrorInterceptor } from '../auth/auth-error-guard';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(), 
-     provideHttpClient(withFetch()),
+    provideHttpClient(withInterceptors([authInterceptor])), 
+    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withFetch()),
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
         useValue: { 
-          appearance: 'outline',
+          appearance: 'outline',  
           subscriptSizing: 'dynamic'
          }
+    },
+     {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthErrorInterceptor,
+      multi: true
     },
     importProvidersFrom(
       BrowserAnimationsModule,
