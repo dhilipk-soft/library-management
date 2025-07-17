@@ -3,4 +3,5 @@ export interface IMember {
   fullName: string;
   email: string;
   phone: string;
+  
 }

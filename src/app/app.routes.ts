@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { FormModuleModule } from './modules/form-module/form-module-module';
+import { FormCreate } from './pages/form-create/form-create';
+
 
 export const routes: Routes = [
   {
@@ -8,16 +9,22 @@ export const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'management',
-    loadComponent: () => import('./pages/management/management').then(m => m.Management),
+    path: 'login',
+    loadComponent: () => import('./components/login/login.component').then(m => m.LoginComponent),
     data: {
-      title: 'Management'
+      title: 'Login'
+    }
+  },
+  {
+    path: 'management',
+  loadComponent: () => import('./pages/management/management').then(m => m.Management),
+  children: [
+    {
+      path: '',
+      redirectTo: 'books',
+      pathMatch: 'full'
     },
-    children: [
-      {
-        path: 'books',
-        loadComponent: () => import('./pages/management/books/books').then(m => m.Books)
-      },
+     { path: 'books', loadComponent: () => import('./pages/management/books/books').then(m => m.Books) },
       {
         path: 'categories',
         loadComponent: () => import('./pages/management/categories/categories').then(m => m.Categories)
@@ -42,6 +49,6 @@ export const routes: Routes = [
   },
   { 
     path: 'form-create',
-    component: FormModuleModule
+    component: FormCreate
   }
 ];

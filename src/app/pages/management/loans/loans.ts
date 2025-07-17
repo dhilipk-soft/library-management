@@ -1,17 +1,9 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { LoanService } from '../../../services/loan-service';
-import { IBookWithMember } from '../../../models/interface/books';
+import { LoanService } from '../../../services/management/loan-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ILoanDisplay } from '../../../models/interface/ILoans';
 import { ToastrService } from 'ngx-toastr';
-
-function parseDateString(dateStr: string): Date {
-  const [day, month, yearTime] = dateStr.split('-');
-  const [year, time] = yearTime.split(' ');
-  return new Date(`${year}-${month}-${day}T${time}`);
-}
-
 
 @Component({
   selector: 'app-loans',
@@ -43,7 +35,6 @@ export class Loans implements OnInit{
     }
   });
 }
-
 
   deleteLoan(id:string):void{
     this.loanService.deleteLoan(id).subscribe({

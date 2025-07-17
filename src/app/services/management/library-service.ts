@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ILibrary, ILibraryDetail, ILibraryShow } from '../models/interface/ILibrary';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment.development';
+import { ILibraryShow, ILibrary, ILibraryDetail } from '../../models/interface/ILibrary';
 
 @Injectable({
   providedIn: 'root'

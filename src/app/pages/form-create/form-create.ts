@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 
 @Component({
   selector: 'app-form-create',
@@ -6,6 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./form-create.scss'],
   standalone: false
 })
-export class FormCreate {
+export class FormCreate  {
+
+ 
 
 }
+  

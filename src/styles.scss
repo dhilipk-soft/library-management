@@ -1,9 +1,5 @@
+@import "tailwindcss";
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 body{
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -13,3 +9,8 @@ body{
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.cdk-drop-list-dragging:not(.element-menu){
+    border: 2px solid !important;
+    background-color: lightblue !important;
+}

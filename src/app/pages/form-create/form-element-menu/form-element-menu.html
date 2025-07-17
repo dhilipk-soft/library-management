@@ -1,3 +1,20 @@
-<div class="p-4 bg-white rounded-lg h-[calc(100vh-250px)] overflow-y-auto border-gray-200 shadow-sm">
-    form elementdn
+<div class=" bg-white text-black rounded-lg h-[calc(100vh-150px)] overflow-y-auto border-gray-200 ">
+    <h3 class="text-xl font-med">Form Element</h3>
+   
+    <div class="flex flex-col gap-3 p-2 element-menu"
+     cdkDropList
+     cdkDropListSortingDisabled="true" 
+     [cdkDropListData]="'field-selector'"
+     >
+            @for (item of fieldType(); track $index) {
+            <app-field-button [type]="item" />
+        }
+    </div>
 </div>
+
+<!--
+---cdkDropListSortingDisabled 
+    for prevent from autosorting 
+---cdkDropList
+    place list item after event drag item
+-->

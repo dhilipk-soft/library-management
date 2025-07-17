@@ -1,5 +1,5 @@
 import { Component ,inject ,OnInit, signal} from '@angular/core';
-import { LibraryService } from '../../../services/library-service';
+import { LibraryService } from '../../../services/management//library-service';
 import { ILibrary, ILibraryShow } from '../../../models/interface/ILibrary';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -17,7 +17,6 @@ export class LibraryList implements OnInit{
   libraryList = signal<ILibraryShow []>([])
   selectedLibrary: LibraryShow = new LibraryShow()
   selectedLibraryMembers = signal<IMember []>([])
-
 
   libraryService = inject(LibraryService);
 

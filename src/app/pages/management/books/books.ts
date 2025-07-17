@@ -2,16 +2,15 @@ import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Book } from '../../../models/class/books';
 import { signal } from '@angular/core';
-import { BookService } from '../../../services/book-service';
+import { BookService } from '../../../services/management/book-service';
 import { CommonModule } from '@angular/common';
-import { Categories } from '../categories/categories';
-import { FormControl, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Category } from '../../../models/class/categories';
-import { CategoryService } from '../../../services/categorie-service';
-import { MemberService } from '../../../services/member-service';
+import { CategoryService } from '../../../services/management/categorie-service';
+import { MemberService } from '../../../services/management/member-service';
 import { IMember } from '../../../models/interface/IMembers';
 import { AddLoan } from '../../../models/class/loans';
-import { LoanService } from '../../../services/loan-service';
+import { LoanService } from '../../../services/management/loan-service';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -20,11 +19,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-import { LibraryService } from '../../../services/library-service';
+import { LibraryService } from '../../../services/management/library-service';
 import { ILibraryDetail } from '../../../models/interface/ILibrary';
-import { BookFormModel, UpdateBook } from '../../../models/interface/books';
+import { UpdateBook } from '../../../models/interface/books';
 
 import { FormGroup, FormBuilder, Validator } from '@angular/forms';
+import { Categories } from "../categories/categories";
 
 
 @Component({
@@ -33,7 +33,6 @@ import { FormGroup, FormBuilder, Validator } from '@angular/forms';
   imports: [
     FormsModule,
     CommonModule,
-    Categories,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
@@ -41,8 +40,9 @@ import { FormGroup, FormBuilder, Validator } from '@angular/forms';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    Categories
+],
   templateUrl: './books.html',
   styleUrl: './books.css',
   encapsulation: ViewEncapsulation.ShadowDom,

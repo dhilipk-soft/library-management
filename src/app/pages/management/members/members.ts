@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { MemberService } from '../../../services/member-service';
+import { MemberService } from '../../../services/management//member-service';
 import { IMember } from '../../../models/interface/IMembers';
-import {FormsModule, NgForm, ReactiveFormsModule}  from '@angular/forms';
+import {FormsModule, NgForm}  from '@angular/forms';
 import { Member } from '../../../models/class/members';
 import { CommonModule } from '@angular/common';
 
@@ -67,7 +67,7 @@ export class Members implements OnInit{
       alert("Member not found");
       return;
     }
-      this.newMember = { ...getMember };
+      this.newMember = { ...getMember,password: '' };
       this.editMode = true;
       this.editId = id;
   }
