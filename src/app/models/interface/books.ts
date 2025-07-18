@@ -1,5 +1,4 @@
 import { ILoanMember } from "./ILoanMembers";
-import { IMember } from "./IMembers";
 
 export interface IBook {
   bookId: string;
@@ -40,7 +39,6 @@ export interface ILoanDisplay {
 }
 
 export interface UpdateBook{
-  bookId: string;
   title: string;
   author: string;
   totalCopies: number;

@@ -1,0 +1,58 @@
+ <h3>Add Member</h3>
+ 
+ <form
+    class="member-form"
+    (ngSubmit)="addMember(memberForm)"
+    #memberForm="ngForm"
+  >
+    <div>
+      <input
+        type="text"
+        name="name"
+        required
+        placeholder="Member Name"
+        [(ngModel)]="newMember.fullName"
+        #name="ngModel"
+      />
+      <div *ngIf="name.invalid && name.touched">Name required</div>
+    </div>
+    <div>
+      <input
+        type="email"
+        name="email"
+        required
+        placeholder="Email"
+        [(ngModel)]="newMember.email"
+        #email="ngModel"
+      />
+      <div *ngIf="email.invalid && email.touched">Email required</div>
+    </div>
+    <div>
+      <input
+        type="text"
+        name="phone"
+        required
+        placeholder="Phone"
+        [(ngModel)]="newMember.phone"
+        #phone="ngModel"
+      />
+      <div *ngIf="phone.invalid && phone.touched">Phone required</div>
+    </div>
+    <div *ngIf="!editMode">
+      <input
+        type="text"
+        name="password"
+        required
+        placeholder="Password"
+        [(ngModel)]="newMember.password"
+        #password="ngModel"
+      />
+      <div *ngIf="password.invalid && password.touched">Password required</div>
+    </div>
+    <button type="submit" [disabled]="memberForm.invalid">
+      {{ editMode ? 'Update Member' : 'Add Member' }}
+    </button>
+    <button type="button" (click)="cancelEdit()" *ngIf="editMode">
+      Cancel
+    </button>
+  </form>

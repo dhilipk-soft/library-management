@@ -12,7 +12,8 @@ import { Footer } from '../../components/footer/footer';
   styleUrl: './management.scss'
 })
 export class Management {
-   toogleBar : boolean = false;
+  
+  toogleBar : boolean = false;
 
   handleToggle(value: boolean){
     this.toogleBar = value;

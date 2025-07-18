@@ -4,10 +4,11 @@ import { IMember } from '../../../models/interface/IMembers';
 import {FormsModule, NgForm}  from '@angular/forms';
 import { Member } from '../../../models/class/members';
 import { CommonModule } from '@angular/common';
+import { MemberForm } from "../../../components/member-form/member-form";
 
 @Component({
   selector: 'app-members',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MemberForm],
   templateUrl: './members.html',
   styleUrl: './members.css'
 })
@@ -29,14 +30,7 @@ export class Members implements OnInit{
     })
   }
 
-  cancelEdit() {
-  this.editMode = false;
-  this.editId = null;
-  this.newMember = new Member();
-}
-
-
-  addMember(form: NgForm) {
+  addMember() {
      if (this.editMode) {
       this.saveUpdate();
       return;
@@ -46,7 +40,6 @@ export class Members implements OnInit{
       next: ()=>{
       this.loadMembers();
       this.newMember = new Member();
-      form.resetForm(); 
       },error: (error)=>{
         console.log(error);
       }

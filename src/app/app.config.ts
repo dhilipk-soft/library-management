@@ -8,7 +8,7 @@ import { routes } from './app.routes';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FormModuleModule } from './modules/form-module/form-module-module';
 import { authInterceptor } from '../core/auth-interceptor';
-import { AuthErrorInterceptor } from '../auth/auth-error-guard';
+import { AuthErrorInterceptor } from '../core/auth/auth-error-guard';
 
 export const appConfig: ApplicationConfig = {
   providers: [

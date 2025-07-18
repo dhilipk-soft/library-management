@@ -5,3 +5,11 @@ export interface IMember {
   phone: string;
   
 }
+
+export interface ICreateMember {
+  
+  fullName: string;
+  email: string;
+  phone: string;
+  
+}

@@ -15,11 +15,12 @@ export class Header {
   router = inject(Router)
   profile : boolean = false
 
-  @Input() toggleBar: boolean = false;
+  toggleBar: boolean = false;
 
   @Output() toggleBarChange = new EventEmitter<boolean>();
 
   handleToggle(){
+    console.log(this.toggleBar)
     this.toggleBar = !this.toggleBar;
     this.toggleBarChange.emit(this.toggleBar);
   }
