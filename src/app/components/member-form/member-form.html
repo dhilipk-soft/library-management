@@ -49,10 +49,12 @@
       />
       <div *ngIf="password.invalid && password.touched">Password required</div>
     </div>
-    <button type="submit" [disabled]="memberForm.invalid">
-      {{ editMode ? 'Update Member' : 'Add Member' }}
-    </button>
-    <button type="button" (click)="cancelEdit()" *ngIf="editMode">
-      Cancel
-    </button>
+    <div class="button-wrapper">
+      <button type="submit" [disabled]="memberForm.invalid">
+        {{ editMode ? 'Update Member' : 'Add Member' }}
+      </button>
+      <button type="button" (click)="cancelEdit()" *ngIf="editMode">
+        Cancel
+      </button>
+    </div>
   </form>

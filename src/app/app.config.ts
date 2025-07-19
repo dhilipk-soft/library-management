@@ -9,6 +9,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FormModuleModule } from './modules/form-module/form-module-module';
 import { authInterceptor } from '../core/auth-interceptor';
 import { AuthErrorInterceptor } from '../core/auth/auth-error-guard';
+import { RoleGuard } from '../core/guard/role-guard';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([authInterceptor])), 
     provideHttpClient(withInterceptorsFromDi()),
     provideHttpClient(withFetch()),
+    RoleGuard,
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
         useValue: { 

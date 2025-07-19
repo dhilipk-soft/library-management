@@ -6,7 +6,7 @@
 
   <div class="app-content">
     <div class="sidebar-wrapper" [ngClass]="{ 'collapsed': toogleBar }">
-      <app-sidebar [toogleBar]="toogleBar" ></app-sidebar>
+      <app-sidebar [toogleBar]="toogleBar" [role]="role" ></app-sidebar>
     </div>
     <div class="main-content">
       <router-outlet></router-outlet> 

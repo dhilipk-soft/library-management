@@ -17,7 +17,9 @@ export class Members implements OnInit{
   editMode = false;
   editId: string | null = null;
   newMember = new Member();
+  
   memberList = signal<IMember []>([]);
+
   memberService = inject(MemberService);
 
   ngOnInit(): void{

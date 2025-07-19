@@ -24,7 +24,6 @@ export class LoginComponent {
     this.authService.login(this.phone, this.password).subscribe(
       (response: ILoginResponse) => {
         this.logResponse = response;
-        console.log('Login successful', response);
         localStorage.setItem('accessToken', response.accessToken)
         localStorage.setItem('refreshToken', response.refreshToken)
         localStorage.setItem('expiresAt', response.expiresAt)

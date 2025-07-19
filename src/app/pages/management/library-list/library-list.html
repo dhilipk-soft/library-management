@@ -4,8 +4,8 @@
             <h2>List of Member</h2>
         </div>
         <div class="lib-bottom">
-            <label>Library Name</label>
-            <select [(ngModel)]="selectedLibrary.libraryName" (ngModelChange)="handleListMembers()" >
+            <label for="lib-list">Library Name</label>
+            <select id="lib-list" [(ngModel)]="selectedLibrary.libraryName" (ngModelChange)="handleListMembers()" >
                 <option value="">Select library</option>
                 <option *ngFor="let itm of libraryList()">
                     {{itm.libraryName}}
