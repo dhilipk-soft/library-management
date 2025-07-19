@@ -5,10 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LibraryShow } from '../../../models/class/Library';
 import { IMember } from '../../../models/interface/IMembers';
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'app-library-list',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatIconModule],
   templateUrl: './library-list.html',
   styleUrl: './library-list.css'
 })

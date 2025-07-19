@@ -1,12 +1,12 @@
 <div class="books-containers">
-  
   <div class="books-con-left">
     <div class="con-left-top">
-      <app-categories
-        (categorySelected)="handleFilterBooks($event)"
-        (librarySelected)="handleFilterLibraries($event)"
-      ></app-categories>
+      <app-tool-bar
+        [(searchText)]="searchText"
+        (searchHandle)="handleFilter($event)"
+      ></app-tool-bar>
     </div>
+
     <div class="con-left-bottom">
       <div class="books-tp">
         <h2>Books</h2>
@@ -20,27 +20,38 @@
               <th>Category</th>
               <th>Published Date</th>
               <th>Available Copies</th>
-              <th>Actions</th>
+              <th  *ngIf="role === 'admin'">Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of filterBookList()">
-              <td>{{ item.title | titlecase }}</td>
-              <td>{{ item.author | titlecase }}</td>
-              <td>{{ getCategoryName(item.categoryId)| titlecase }}</td>
-              <td>{{ item.publishDate }}</td>
+            <tr
+              *ngFor="let item of filterBookList() | filter:searchText:'title'"
+            >
+              <td>{{ item.title }}</td>
+              <td>{{ item.author }}</td>
+              <td>{{ getCategoryName(item.categoryId) }}</td>
+              <td>{{ item.publishDate | date}}</td>
               <td>
                 {{ (item.availableCopies === 0)?"Not Available":item.availableCopies }}
               </td>
-              <td class="bookListBtn">
+              <td class="bookListBtn" *ngIf="role === 'admin' ">
                 <button
                   (click)="reserveBook(item.id)"
-                  [ngClass]="{'out-of-stock': item.availableCopies === 0  }"
+                  class="action-btn"
+                  [ngClass]="{ 'out-of-stock': item.availableCopies === 0 }"
                   [disabled]="item.availableCopies === 0"
+                  aria-label="Reserve Book"
                 >
-                  Get
+                  <mat-icon>shopping_cart</mat-icon>
                 </button>
-                <button (click)="updateBook(item.id)">Edit</button>
+
+                <button
+                  (click)="updateBook(item.id)"
+                  class="action-btn"
+                  aria-label="Edit Book"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
               </td>
             </tr>
           </tbody>
@@ -51,6 +62,7 @@
 
   <!-- form  -->
   <app-book-form
+  *ngIf="role === 'admin'"
     [bookData]="bookData"
     (bookDataChange)="addBook($event)"
     [editBook]="editBook"
@@ -63,6 +75,7 @@
 <div *ngIf="reserverPopup" class="popup-overlay">
   <div class="popup-content">
     <h2>Reserve a Book</h2>
+
     <form (ngSubmit)="handleReserve(reservForm)" #reservForm="ngForm">
       <label for="book">Select Book:</label>
       <select [(ngModel)]="newLoan.bookId" id="book" name="book" required>

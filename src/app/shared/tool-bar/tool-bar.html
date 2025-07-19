@@ -1,0 +1,18 @@
+<div class="toolbar_wrapper">
+  <div>
+    <div class="toolbar_container">
+      <mat-icon>search</mat-icon>
+      <input
+        placeholder="Search"
+        [(ngModel)]="searchText"
+        (ngModelChange)="onSearchChange($event)"
+      />
+    </div>
+  </div>
+  <div class="toolbar__category">
+    <app-categories
+      (categorySelected)="handleCategoryChange($event)"
+      (librarySelected)="handleLibraryChange($event)"
+    ></app-categories>
+  </div>
+</div>

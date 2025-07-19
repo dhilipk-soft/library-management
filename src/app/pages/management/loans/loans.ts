@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ILoanDisplay } from '../../../models/interface/ILoans';
 import { ToastrService } from 'ngx-toastr';
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'app-loans',
-  imports: [ FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatIconModule],
   templateUrl: './loans.html',
   styleUrl: './loans.css'
 })

@@ -5,10 +5,11 @@ import {FormsModule, NgForm}  from '@angular/forms';
 import { Member } from '../../../models/class/members';
 import { CommonModule } from '@angular/common';
 import { MemberForm } from "../../../components/member-form/member-form";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'app-members',
-  imports: [FormsModule, CommonModule, MemberForm],
+  imports: [FormsModule, CommonModule, MemberForm, MatIconModule],
   templateUrl: './members.html',
   styleUrl: './members.css'
 })

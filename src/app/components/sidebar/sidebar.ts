@@ -2,7 +2,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import {CLAIM_KEYS} from '../../../constant/role';
+import {CLAIM_KEYS} from '../../constant/role';
 
 @Component({
   selector: 'app-sidebar',

@@ -1,3 +1,8 @@
+.categories-container{
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+}
 .library-list,
 .categories-list {
   width: 100%;
@@ -6,7 +11,7 @@
 h2{
   font-size: 24px;
   color: #0f172a;
-  margin-bottom: 7px;
+  margin: 0px;
 }
 
 .container {

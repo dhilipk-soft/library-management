@@ -4,7 +4,7 @@ export class Book {
   id: string; 
   title: string;
   author: string;
-  publishDate: Date; 
+  publishDate: string; 
   totalCopies: number;
   availableCopies: number;
   categoryId: string;
@@ -14,7 +14,7 @@ export class Book {
     this.id = '';
     this.title = '';
     this.author = '';
-    this.publishDate = new Date(); // or new Date().toISOString() if you use Date
+    this.publishDate ='', // or new Date().toISOString() if you use Date
     this.totalCopies = 0;
     this.availableCopies = 0;
     this.categoryId = '';

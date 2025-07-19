@@ -1,0 +1,21 @@
+<div class="categories-container">
+  <div class="container">
+  <div class="categories-list">
+    <select (change)="onCategoryChange($event)">
+      <option value="">All Categories</option>
+      <option *ngFor="let itm of categoryList()" [value]="itm.categoryId">
+        {{ itm.categoryName | titlecase }}
+      </option>
+    </select>
+  </div>
+
+  <div class="library-list">
+    <select (change)="onLibraryChange($event)">
+      <option value="">All Libraries</option>
+      <option *ngFor="let itm of libraryList()" [value]="itm.libraryId">
+        {{ itm.libraryName| titlecase }}
+      </option>
+    </select>
+  </div>
+</div>
+</div>

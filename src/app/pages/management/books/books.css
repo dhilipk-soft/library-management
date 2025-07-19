@@ -6,16 +6,22 @@
     background-color: #f8fafc; /* light background */
 }
 
+.books-tp h2{
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
 .books-con-left {
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    width: 80%;
+    width: 100%;
 }
 
 .books-list {
-    max-height: 350px ;
+    max-height: 450px ;
     overflow-y:auto;
+    width: 100%;
 }
 
 .books-list table {
@@ -24,9 +30,15 @@
     font-size: 15px;
 }
 
+.books-tp h2{
+  font-size: 24px;
+  color: #0f172a;
+}
+
 .books-list th{
     position:sticky;
     top:0;
+    margin-top:0px;
 }
 
 .books-list th,
@@ -48,21 +60,18 @@
 
 .bookListBtn {
     display: flex;
-    flex-direction: column;
-    height: 100%;
     align-items: center;
     justify-content: center;
     gap: 8px;
 }
 
 .bookListBtn button {
-  padding: 8px 12px;
-  border: none;
   border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bookListBtn button:first-child {
@@ -129,6 +138,7 @@
     padding: 9px;
     border-radius: 7px;
     font-size: 16px;
+    border: 1px solid #cccc;
 }
 
 .popup-content h2 {
@@ -182,3 +192,18 @@
     cursor:not-allowed !important;
     color: #cf7c7c;
 }   
+
+.small-icon-button {
+  width: 30px;
+  height: 30px;
+  padding: 4px;
+  min-width: 30px; 
+}
+
+.small-icon {
+  font-size: 16px; /* or 18px for slightly larger */
+}
+
+.small-icon-button {
+  border-radius: 4px;
+}

@@ -1,4 +1,10 @@
-import { Component, inject, Output, output, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  inject,
+  Output,
+  output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Book } from '../../../models/class/books';
 import { signal } from '@angular/core';
@@ -22,14 +28,15 @@ import { LibraryService } from '../../../services/management/library-service';
 import { ILibraryDetail } from '../../../models/interface/ILibrary';
 import { IBook, UpdateBook } from '../../../models/interface/books';
 
-import { Categories } from "../categories/categories";
-import { BookForm } from "../../../components/book-form/book-form";
+import { Categories } from '../../../shared/categories/categories';
+import { BookForm } from '../../../shared/book-form/book-form';
 import { ICategory } from '../../../models/interface/ICategories';
-
+import { ToolBar } from '../../../shared/tool-bar/tool-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { FilterPipe } from '../../../pipes/filter-pipe';
 
 @Component({
   selector: 'app-books',
-  standalone: true,
   imports: [
     FormsModule,
     CommonModule,
@@ -40,21 +47,24 @@ import { ICategory } from '../../../models/interface/ICategories';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    Categories,
-    BookForm
-],
+    BookForm,
+    ToolBar,
+    MatIconModule,
+    FilterPipe,
+  ],
   templateUrl: './books.html',
   styleUrl: './books.css',
-  encapsulation: ViewEncapsulation.ShadowDom,
+  encapsulation: ViewEncapsulation.None,
 })
 export class Books implements OnInit {
-
   memberList = signal<IMember[]>([]);
   availableBookList = signal<Book[]>([]);
   bookList = signal<Book[]>([]);
   filterBookList = signal<Book[]>([]);
   categoryList = signal<ICategory[]>([]);
   libraryList = signal<ILibraryDetail[]>([]);
+  searchText: string = '';
+  role: string = '';
 
   reserverPopup = false;
   editBook = false;
@@ -74,12 +84,12 @@ export class Books implements OnInit {
   loanService = inject(LoanService);
   newLoan: AddLoan = new AddLoan();
 
-
   ngOnInit(): void {
     this.loadBooks();
     this.loadCategories();
     this.loadMember();
     this.loadLibraryName();
+    this.handleRole()
   }
 
   loadLibraryName(): void {
@@ -123,11 +133,22 @@ export class Books implements OnInit {
   //load data to bookList
   loadBooks(): void {
     this.bookService.getAllBooks().subscribe((data) => {
-      this.bookList.set(data);
-      this.filterBookList.set(data);
+      const formattedData = data.map(book => {
+      return {
+        ...book,
+        publishDate: this.convertToDate(book.publishDate).toISOString(), // optional: keep as Date or ISO string
+      };
+    });
+      this.bookList.set(formattedData);
+      this.filterBookList.set(formattedData);
     });
   }
 
+  private convertToDate(dateStr: string): Date {
+  const [datePart, timePart] = dateStr.split(' ');
+  const [day, month, year] = datePart.split('-');
+  return new Date(`${year}-${month}-${day}T${timePart}`);
+}
   //load category to categoryList
   loadCategories(): void {
     this.CategoryService.getAllCategories().subscribe((data) => {
@@ -135,25 +156,16 @@ export class Books implements OnInit {
     });
   }
 
-  //filter book based on category
-  handleFilterBooks(categoryId: string): void {
-    if (!categoryId) {
-      this.filterBookList.set(this.bookList());
-    } else {
-      this.filterBookList.set(
-        this.bookList().filter((book) => book.categoryId === categoryId)
-      );
-    }
-  }
+  handleFilter(event: { categoryId: string; libraryId: string }) {
+    const { categoryId, libraryId } = event;
 
-  handleFilterLibraries(libraryId: string): void {
-    if (!libraryId) {
-      this.filterBookList.set(this.bookList());
-    } else {
-      this.filterBookList.set(
-        this.bookList().filter((book) => book.libraryId === libraryId)
-      );
-    }
+    const filteredBooks = this.bookList().filter((book) => {
+      const matchCategory = categoryId ? book.categoryId === categoryId : true;
+      const matchLibrary = libraryId ? book.libraryId === libraryId : true;
+      return matchCategory && matchLibrary;
+    });
+
+    this.filterBookList.set(filteredBooks);
   }
 
   cancelAddBook() {
@@ -166,7 +178,7 @@ export class Books implements OnInit {
   addBook(formData: Book): void {
     // debugger
     if (this.editBook) {
-      this.saveUpdate(formData);      
+      this.saveUpdate(formData);
       return;
     }
 
@@ -183,15 +195,15 @@ export class Books implements OnInit {
   updateBook(id: string) {
     const getBook = this.bookList().find((book) => book.id === id);
 
-    console.log("get")
-    console.log(getBook)
+    console.log('get');
+    console.log(getBook);
     if (!getBook) {
       alert('Book not found');
       return;
     }
 
     this.newBook = { ...getBook };
-    this.bookData= { ...getBook};
+    this.bookData = { ...getBook };
     this.editBook = true;
     this.editBookId = id;
   }
@@ -201,15 +213,18 @@ export class Books implements OnInit {
     // debugger
     if (!this.editBookId) return;
 
-      const updateBook: UpdateBook = {
-        title: formData.title,
-        author: formData.author,
-        totalCopies: Number(formData.totalCopies),
-        availableCopies: Number(this.newBook.availableCopies+Number(formData.totalCopies - this.newBook.totalCopies)),
-        categoryId: formData.categoryId,
-        libraryId: formData.libraryId,
-      };
-    console.log("update")
+    const updateBook: UpdateBook = {
+      title: formData.title,
+      author: formData.author,
+      totalCopies: Number(formData.totalCopies),
+      availableCopies: Number(
+        this.newBook.availableCopies +
+          Number(formData.totalCopies - this.newBook.totalCopies)
+      ),
+      categoryId: formData.categoryId,
+      libraryId: formData.libraryId,
+    };
+    console.log('update');
     console.log(updateBook);
 
     this.bookService.updateBook(updateBook, this.bookData.id).subscribe({
@@ -233,6 +248,14 @@ export class Books implements OnInit {
     );
   }
 
-  
-}
+  handleRole():void {
+    
+    const token = localStorage.getItem('accessToken')
+        if (token) {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          this.role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+           console.log("Role:", this.role);
+        }
 
+  }
+}

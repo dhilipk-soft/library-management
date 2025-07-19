@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import {  ILibraryShow } from '../../../models/interface/ILibrary';
 import { LibraryService } from '../../../services/management//library-service';
 import { Library } from '../../../models/class/Library';
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'app-library',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatIconModule],
   templateUrl: './library.html',
   styleUrl: './library.css'
 })

@@ -1,10 +1,10 @@
 
 import { Component, inject, OnInit, signal , Output, EventEmitter  } from '@angular/core';
-import { CategoryService } from '../../../services/management/categorie-service';
-import {Category} from '../../../models/class/categories';
+import { CategoryService } from '../../services/management/categorie-service';
+import {Category} from '../../models/class/categories';
 import { CommonModule } from '@angular/common';
-import { ILibraryDetail } from '../../../models/interface/ILibrary';
-import { LibraryService } from '../../../services/management/library-service';
+import { ILibraryDetail } from '../../models/interface/ILibrary';
+import { LibraryService } from '../../services/management/library-service';
 
 @Component({
   selector: 'app-categories',
@@ -22,7 +22,7 @@ export class Categories implements OnInit {
 
   ngOnInit(): void {
       this.loadCategories();
-      this.loadLibraryies();
+      this.loadLibraries();
   }
 
   loadCategories() {
@@ -31,7 +31,7 @@ export class Categories implements OnInit {
     })
   }
 
-  loadLibraryies() {
+  loadLibraries() {
     this.libraryService.getAllLibrariesName().subscribe((data)=>{
       this.libraryList.set(data);
     })
@@ -44,14 +44,12 @@ export class Categories implements OnInit {
     const target = event.target as HTMLSelectElement;
     this.selectedCategoryId = target.value;
     this.categorySelected.emit(this.selectedCategoryId);
-    //  console.log(this.selectedCategoryId);
   }
 
   onLibraryChange(event :Event): void{
     const target = event.target as HTMLSelectElement;
     this.selectedCategoryId = target.value;
     this.librarySelected.emit(this.selectedCategoryId);
-    //  console.log(this.selectedCategoryId);
   }
     
 }

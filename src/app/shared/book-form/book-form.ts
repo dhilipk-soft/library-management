@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChange, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
@@ -7,12 +7,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ICategory } from '../../models/interface/ICategories';
 import { ILibraryDetail } from '../../models/interface/ILibrary';
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: 'app-book-form',
-  imports: [MatInputModule, ReactiveFormsModule, MatSelectModule, CommonModule ],
+  imports: [MatInputModule, ReactiveFormsModule, MatSelectModule, CommonModule, MatIconModule],
   templateUrl: './book-form.html',
-  styleUrl: './book-form.scss'
+  styleUrl: './book-form.scss',
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class BookForm {
 
