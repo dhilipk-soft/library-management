@@ -1,131 +1,107 @@
 /* Main Container */
 .container {
-    padding: 30px;
-    background-color: #f8fafc;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  background-color: #f8fafc;
+  border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Section Title */
+/* Title */
 .title {
-    font-size: 24px;
-    color: #0f172a;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #0ea5e9;
-    padding-bottom: 8px;
+  font-size: 24px;
+  color: #0f172a;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #0ea5e9;
+  padding-bottom: 8px;
 }
 
-/* Form Styling */
-.member-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 30px;
+/* Wrapper */
+.member-form-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-.member-form input {
-    flex: 1 1 200px;
-    padding: 10px 14px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 14px;
-    outline: none;
-    transition: border 0.3s ease;
+/* Members Table */
+.members-table-list {
+  flex: 1;
+  min-width: 600px;
+  max-height: 400px;
+  overflow: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
 }
 
-.member-form input:focus {
-    border-color: #0ea5e9;
-    box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.3);
-}
-
-.member-form button {
-    padding: 10px 20px;
-    background-color: #0ea5e9;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.member-form button[disabled] {
-    background-color: #94a3b8;
-    cursor: not-allowed;
-}
-
-.member-form button:hover:enabled {
-    background-color: #0284c7;
-}
-
-.members-table-list{
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-/* Table Styling */
 .members-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 15px;
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 600px;
+  font-size: 15px;
 }
 
-.members-table th{
-    position: sticky;
-    top:0;
+.members-table th {
+  background-color: #e2e8f0;
+  color: #1e293b;
+  position: sticky;
+  top: 0;
 }
 
 .members-table th,
 .members-table td {
-    padding: 12px 16px;
-    border: 1px solid #e2e8f0;
-    text-align: left;
-}
-
-.members-table th {
-    background-color: #e2e8f0;
-    color: #1e293b;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  text-align: left;
 }
 
 .members-table tbody tr:hover {
-    background-color: #f1f5f9;
-}
-.bookListBtn {
-    display: flex;
-    gap:10px;
-    align-items: center;
-    justify-content: center;
+  background-color: #f1f5f9;
 }
 
-/* Action Button */
+/* Action Buttons */
+.bookListBtn {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.members-table button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
 .members-table button:first-child {
-    padding: 6px 12px;
-    background-color: #ef4444;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #ef4444;
+  color: white;
 }
 
 .members-table button:first-child:hover {
-    background-color: #dc2626;
+  background-color: #dc2626;
 }
 
 .members-table button:last-child {
-    padding: 6px 12px;
-    background-color: #0055c4;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  background-color: #0055c4;
+  color: white;
 }
 
 .members-table button:last-child:hover {
-    background-color: #024092;
+  background-color: #024092;
+}
+
+/* Member Form */
+.member-form-container {
+  width: 250px;
+  min-width: 225px;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }

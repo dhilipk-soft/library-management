@@ -3,4 +3,13 @@ export interface IMember {
   fullName: string;
   email: string;
   phone: string;
+  
+}
+
+export interface ICreateMember {
+  
+  fullName: string;
+  email: string;
+  phone: string;
+  
 }

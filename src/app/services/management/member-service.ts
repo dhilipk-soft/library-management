@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IMember } from '../../models/interface/IMembers';
+import { ICreateMember, IMember } from '../../models/interface/IMembers';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
@@ -19,8 +19,8 @@ export class MemberService {
     return this.http.get<IMember>(environment.API_URL + 'Member/' + `${id}`)
   }
 
-  createMember(member: IMember):Observable<IMember> {
-    return this.http.post<IMember>(environment.API_URL + 'Member', member)
+  createMember(member:  ICreateMember):Observable<ICreateMember> {
+    return this.http.post<ICreateMember>(environment.API_URL + 'Member', member)
   }
 
   updateMemberById(id: string, member: IMember): Observable<IMember> {

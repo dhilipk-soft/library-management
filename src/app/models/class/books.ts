@@ -4,7 +4,7 @@ export class Book {
   id: string; 
   title: string;
   author: string;
-  publishDate: Date; // use Date if you prefer
+  publishDate: Date; 
   totalCopies: number;
   availableCopies: number;
   categoryId: string;

@@ -11,7 +11,7 @@ export interface FormField{
     required :string
 }
 
-export interface FieldRow{
+export interface FormRow{
     id: string,
     fields: FormField[]
 }

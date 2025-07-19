@@ -40,6 +40,9 @@
 .nameContainer input{
     padding: 7px 10px;
     flex: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
 
 .errorName{

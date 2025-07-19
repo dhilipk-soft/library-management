@@ -1,75 +1,37 @@
-
 <div class="container">
   <h2 class="title">Library Members</h2>
 
-  <!-- Add Member Form -->
-  <form  class="member-form" (ngSubmit)="addMember(memberForm)" #memberForm="ngForm">
-    <input
-      type="text"
-      name="name"
-      required
-      placeholder="Member Name"
-      [(ngModel)]="newMember.fullName"
-      #name="ngModel"
-    />
-    <div *ngIf="name.invalid && name.touched">
-      Name required
+  <div class="member-form-wrapper">
+    <div class="members-table-list">
+      <table class="members-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of memberList();let i = index">
+            <td>{{1+i}}</td>
+            <td>{{item.fullName}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.phone}}</td>
+            <td class="bookListBtn">
+              <button (click)="deleteMember(item.memberId)">Delete</button>
+              <button (click)="updateMember(item.memberId)">Edit</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <input
-      type="email"
-      name="email"
-      required
-      placeholder="Email"
-      [(ngModel)]="newMember.email"
-      #email ="ngModel"
-    />
-    <div *ngIf="email.invalid && email.touched">
-      Email required
+
+    <div class="member-form-container">
+      <app-member-form [(newMember)]="newMember" [editMode]="editMode" (addMemberEvent)="addMember()" ></app-member-form>
     </div>
-    <input
-      type="text"
-      name="phone"
-      required
-      placeholder="Phone"
-      [(ngModel)]="newMember.phone"
-      #phone ="ngModel"
-    />
-    <div *ngIf="phone.invalid && phone.touched">
-      Phone required
-    </div>
-    <button type="submit" [disabled]="memberForm.invalid">
-      {{ editMode ? 'Update Member' : 'Add Member' }}
-    </button>
-    <button type="button" (click)="cancelEdit()" *ngIf="editMode">Cancel</button>
-
-
-  </form>
-
-  <div class="members-table-list">
-  <!-- Members Table -->
-  <table class="members-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of memberList();let i = index">
-        
-        <td>{{1+i}}</td>
-        <td>{{item.fullName}}</td>
-        <td>{{item.email}}</td>
-        <td>{{item.phone}}</td>
-        <td class="bookListBtn">
-          <button (click)="deleteMember(item.memberId)">Delete</button>
-          <button (click)="updateMember(item.memberId)" >Edit</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
   </div>
 </div>
+<!-- Add Member Form -->
+ 

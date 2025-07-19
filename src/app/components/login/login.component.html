@@ -1,0 +1,41 @@
+<div class="login-container">
+  <form class="login-box" (ngSubmit)="onSubmit()">
+    <p class="subtitle">Please enter your details</p>
+    <h2 class="title">Welcome back</h2>
+
+    <input
+      type="email"
+      [(ngModel)]="phone"
+      name="email"
+      placeholder="Email address"
+      required
+    />
+
+    <input
+      type="password"
+      [(ngModel)]="password"
+      name="password"
+      placeholder="Password"
+      required
+    />
+
+    <div class="options">
+      <label><input type="checkbox" /> Remember for 30 days</label>
+      <a href="#" class="link">Forgot password</a>
+    </div>
+
+    <button class="btn primary" type="submit">Sign up</button>
+
+    <div class="divider">or</div>
+
+    <button class="btn google" type="button">
+      
+      Sign in with Google
+    </button>
+
+    <p class="footer">
+      Don’t have an account?
+      <a href="#" class="link">Sign up</a>
+    </p>
+  </form>
+</div>

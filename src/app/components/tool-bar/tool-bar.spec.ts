@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Members } from './members';
+import { ToolBar } from './tool-bar';
 
-describe('Members', () => {
-  let component: Members;
-  let fixture: ComponentFixture<Members>;
+describe('ToolBar', () => {
+  let component: ToolBar;
+  let fixture: ComponentFixture<ToolBar>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Members]
+      imports: [ToolBar]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Members);
+    fixture = TestBed.createComponent(ToolBar);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

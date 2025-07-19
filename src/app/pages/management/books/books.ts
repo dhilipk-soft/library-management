@@ -1,11 +1,10 @@
-import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { Component, inject, Output, output, ViewEncapsulation } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Book } from '../../../models/class/books';
 import { signal } from '@angular/core';
 import { BookService } from '../../../services/management/book-service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Category } from '../../../models/class/categories';
+import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { CategoryService } from '../../../services/management/categorie-service';
 import { MemberService } from '../../../services/management/member-service';
 import { IMember } from '../../../models/interface/IMembers';
@@ -21,10 +20,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { LibraryService } from '../../../services/management/library-service';
 import { ILibraryDetail } from '../../../models/interface/ILibrary';
-import { UpdateBook } from '../../../models/interface/books';
+import { IBook, UpdateBook } from '../../../models/interface/books';
 
-import { FormGroup, FormBuilder, Validator } from '@angular/forms';
 import { Categories } from "../categories/categories";
+import { BookForm } from "../../../components/book-form/book-form";
+import { ICategory } from '../../../models/interface/ICategories';
 
 
 @Component({
@@ -40,35 +40,33 @@ import { Categories } from "../categories/categories";
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ReactiveFormsModule,
-    Categories
+    Categories,
+    BookForm
 ],
   templateUrl: './books.html',
   styleUrl: './books.css',
   encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class Books implements OnInit {
+
   memberList = signal<IMember[]>([]);
   availableBookList = signal<Book[]>([]);
   bookList = signal<Book[]>([]);
   filterBookList = signal<Book[]>([]);
-  categoryList = signal<Category[]>([]);
+  categoryList = signal<ICategory[]>([]);
   libraryList = signal<ILibraryDetail[]>([]);
 
   reserverPopup = false;
   editBook = false;
   editBookId: string | null = null;
   newBook: Book = new Book();
+  bookData: Book = new Book();
   selectedBookId: string | null = null;
   selectedMemberId: string | null = null;
-  
-  bookForm!: FormGroup;
-
 
   constructor(
     private bookService: BookService,
-    private libraryService: LibraryService,
-    private fb: FormBuilder
+    private libraryService: LibraryService
   ) {}
 
   CategoryService = inject(CategoryService);
@@ -76,28 +74,17 @@ export class Books implements OnInit {
   loanService = inject(LoanService);
   newLoan: AddLoan = new AddLoan();
 
+
   ngOnInit(): void {
     this.loadBooks();
     this.loadCategories();
     this.loadMember();
     this.loadLibraryName();
-    this.formGenerate();
-  }
-
-  formGenerate():void {
-    this.bookForm = this.fb.group({
-      title: this.fb.control('',[Validators.required, Validators.min(5)]),
-      author: this.fb.control('',[Validators.required]),
-      totalCopies: this.fb.control<number>(0, [Validators.required]),
-      categoryId: this.fb.control('', [Validators.required]),
-      libraryId: this.fb.control('', [Validators.required]),
-    })
   }
 
   loadLibraryName(): void {
     this.libraryService.getAllLibrariesName().subscribe((data) => {
       this.libraryList.set(data);
-      console.log(this.libraryList());
     });
   }
 
@@ -138,7 +125,6 @@ export class Books implements OnInit {
     this.bookService.getAllBooks().subscribe((data) => {
       this.bookList.set(data);
       this.filterBookList.set(data);
-      console.log();
     });
   }
 
@@ -146,7 +132,6 @@ export class Books implements OnInit {
   loadCategories(): void {
     this.CategoryService.getAllCategories().subscribe((data) => {
       this.categoryList.set(data);
-      console.log(this.filterBookList());
     });
   }
 
@@ -175,23 +160,19 @@ export class Books implements OnInit {
     this.editBook = false;
     this.editBookId = '';
     this.newBook = new Book();
-    this.resetForm()
   }
 
   //addBook
-  addBook(): void {
+  addBook(formData: Book): void {
+    // debugger
     if (this.editBook) {
-      this.saveUpdate();
-      console.log('update');
+      this.saveUpdate(formData);      
       return;
     }
 
-    // if (this.bookForm.valid)
-    //   console.log('hai');
-    this.bookService.addBook(this.bookForm.value).subscribe({
+    this.bookService.addBook(formData).subscribe({
       next: () => {
         this.loadBooks();
-        this.resetForm()
       },
       error: (error) => {
         console.log(error);
@@ -202,6 +183,7 @@ export class Books implements OnInit {
   updateBook(id: string) {
     const getBook = this.bookList().find((book) => book.id === id);
 
+    console.log("get")
     console.log(getBook)
     if (!getBook) {
       alert('Book not found');
@@ -209,40 +191,34 @@ export class Books implements OnInit {
     }
 
     this.newBook = { ...getBook };
-    this.bookForm.patchValue({
-      title:this.newBook.title,
-      author:this.newBook.author,
-      totalCopies:this.newBook.totalCopies,
-      categoryId:this.newBook.categoryId,
-      libraryId:this.newBook.libraryId
-    })
+    this.bookData= { ...getBook};
     this.editBook = true;
     this.editBookId = id;
   }
 
-  saveUpdate(): void {
-    console.log('update2');
-
+  saveUpdate(formData: Book): void {
+    // console.log('update');
+    // debugger
     if (!this.editBookId) return;
 
-    const updateBook: UpdateBook = {
-      bookId: this.newBook.id,
-      title: this.bookForm.get('title')?.value,
-      author: this.bookForm.get('author')?.value,
-      totalCopies: Number(this.bookForm.get('totalCopies')?.value),
-      availableCopies: Number(this.newBook.availableCopies+Number(this.bookForm.get('totalCopies')?.value - this.newBook.totalCopies)),
-      categoryId: this.bookForm.get('categoryId')?.value,
-      libraryId: this.bookForm.get('libraryId')?.value,
-    };
+      const updateBook: UpdateBook = {
+        title: formData.title,
+        author: formData.author,
+        totalCopies: Number(formData.totalCopies),
+        availableCopies: Number(this.newBook.availableCopies+Number(formData.totalCopies - this.newBook.totalCopies)),
+        categoryId: formData.categoryId,
+        libraryId: formData.libraryId,
+      };
+    console.log("update")
     console.log(updateBook);
 
-    this.bookService.updateBook(updateBook).subscribe({
+    this.bookService.updateBook(updateBook, this.bookData.id).subscribe({
       next: () => {
         this.loadBooks();
         this.newBook = new Book();
+        this.bookData = new Book();
         this.editBook = false;
         this.editBookId = null;
-        this.resetForm()
       },
       error: (error) => {
         console.log(error);
@@ -257,11 +233,6 @@ export class Books implements OnInit {
     );
   }
 
-  resetForm(): void {
-  this.bookForm.reset();
-  this.bookForm.markAsPristine();
-  this.bookForm.markAsUntouched();
-  this.bookForm.updateValueAndValidity();
-}
+  
 }
 
