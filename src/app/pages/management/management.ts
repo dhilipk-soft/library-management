@@ -12,9 +12,26 @@ import { Footer } from '../../components/footer/footer';
   styleUrl: './management.scss'
 })
 export class Management {
-   toogleBar : boolean = false;
+  
+  role: string = "";
+  toogleBar : boolean = false;
+
+  ngOnInit(): void {
+    this.handleRole();
+  }
 
   handleToggle(value: boolean){
     this.toogleBar = value;
+  }
+
+  handleRole():void {
+    
+    const token = localStorage.getItem('accessToken')
+        if (token) {
+          const payload = JSON.parse(atob(token.split('.')[1]));
+          this.role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+           console.log("Role:", this.role);
+        }
+
   }
 }

@@ -26,7 +26,7 @@ export class BookService {
     return this.http.post<Book>(environment.API_URL + 'Book', book);
   }
 
-  updateBook(book: UpdateBook): Observable<UpdateBook> {
-    return this.http.put<UpdateBook>(environment.API_URL + 'Book/' + `${book.bookId}`, book);
+  updateBook(book: UpdateBook, id: string): Observable<UpdateBook> {
+    return this.http.put<UpdateBook>(environment.API_URL + 'Book/' + `${id}`, book);
   }
 }

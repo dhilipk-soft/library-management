@@ -1,0 +1,69 @@
+  <div class="books-con-right">
+    <div class="books-tp">
+      <h1>Add Book</h1>
+    </div>
+    <form [formGroup]="bookForm" (ngSubmit)="addBook()" #form="ngForm">
+      <div  class="form-wrapper">
+        <mat-form-field subscriptSizing="dynamic" class="form-field">
+          <mat-label >Title:</mat-label>
+          <input matInput formControlName="title" placeholder="Enter Title" />
+          <mat-error *ngIf="bookForm.get('title')?.hasError('required') && (bookForm.get('title')?.touched || bookForm.get('title')?.dirty)">
+            Title is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field subscriptSizing="dynamic" class="form-field">
+          <mat-label>Author:</mat-label>
+          <input matInput formControlName="author" placeholder="Enter Author" />
+          <mat-error *ngIf="bookForm.get('author')?.hasError('required')&& (bookForm.get('author')?.touched || bookForm.get('author')?.dirty)">
+            Author is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field subscriptSizing="dynamic" class="form-field">
+          <mat-label>Select Library:</mat-label>
+          <mat-select formControlName="libraryId">
+            <mat-option *ngFor="let item of libraryList" [value]="item.libraryId">
+              {{item.libraryName | titlecase}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="bookForm.get('libraryId')?.hasError('required') && (bookForm.get('libraryId')?.touched || bookForm.get('libraryId')?.dirty)">
+            select onr library</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field subscriptSizing="dynamic" class="form-field">
+          <mat-label>Select Cateory:</mat-label>
+          <mat-select formControlName="categoryId">
+            <mat-option *ngFor="let item of categoryList" [value]="item.categoryId">
+              {{item.categoryName| titlecase}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="bookForm.get('categoryId')?.hasError('required') && (bookForm.get('categoryId')?.touched || bookForm.get('categoryId')?.dirty)"> 
+            Select one category</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field subscriptSizing="dynamic" class="form-field">
+          <mat-label for="number">Total Copies:</mat-label>
+          <input matInput type="number" id="number" formControlName="totalCopies" placeholder="Enter Copies" />
+          <mat-error *ngIf="bookForm.get('totalCopies')?.hasError('required') && (bookForm.get('totalCopies')?.touched || bookForm.get('totalCopies')?.dirty)">
+            Total copies is required
+          </mat-error>
+          <mat-error *ngIf="bookForm.get('totalCopies')?.hasError('min')">
+            At least one copy is required
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button type="submit" [disabled]="bookForm.invalid">
+        {{editBook ? "Update Book" : " Add Book"}}
+      </button>
+    </form>
+  </div>
