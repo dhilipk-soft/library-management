@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IFieldTypeDefinition } from '../../../models/interface/form';
+import { IFieldTypeDefinition } from '../../../shared/models/interface/form';
 import { MatIconModule } from '@angular/material/icon';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 

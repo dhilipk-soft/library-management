@@ -1,20 +1,20 @@
 import {
   Component,
   inject,
-  Output,
-  output,
+  OnChanges,
+  SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Book } from '../../../models/class/books';
+import { Book } from '../../../shared/models/class/books';
 import { signal } from '@angular/core';
 import { BookService } from '../../../services/management/book-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
 import { CategoryService } from '../../../services/management/categorie-service';
 import { MemberService } from '../../../services/management/member-service';
-import { IMember } from '../../../models/interface/IMembers';
-import { AddLoan } from '../../../models/class/loans';
+import { IMember } from '../../../shared/models/interface/IMembers';
+import { AddLoan } from '../../../shared/models/class/loans';
 import { LoanService } from '../../../services/management/loan-service';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -25,15 +25,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { LibraryService } from '../../../services/management/library-service';
-import { ILibraryDetail } from '../../../models/interface/ILibrary';
-import { IBook, UpdateBook } from '../../../models/interface/books';
+import { ILibraryDetail } from '../../../shared/models/interface/ILibrary';
+import { IBook, UpdateBook } from '../../../shared/models/interface/books';
 
-import { Categories } from '../../../shared/categories/categories';
 import { BookForm } from '../../../shared/book-form/book-form';
-import { ICategory } from '../../../models/interface/ICategories';
+import { ICategory } from '../../../shared/models/interface/ICategories';
 import { ToolBar } from '../../../shared/tool-bar/tool-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { FilterPipe } from '../../../pipes/filter-pipe';
+import { Pagination } from '../../../shared/pagination/pagination';
 
 @Component({
   selector: 'app-books',
@@ -51,6 +51,7 @@ import { FilterPipe } from '../../../pipes/filter-pipe';
     ToolBar,
     MatIconModule,
     FilterPipe,
+    Pagination,
   ],
   templateUrl: './books.html',
   styleUrl: './books.css',
@@ -63,16 +64,22 @@ export class Books implements OnInit {
   filterBookList = signal<Book[]>([]);
   categoryList = signal<ICategory[]>([]);
   libraryList = signal<ILibraryDetail[]>([]);
+  displayBookList = signal<Book[]>([]);
+
+  selectedCategoryId: string = '';
+  selectedLibraryId: string = '';
   searchText: string = '';
   role: string = '';
+  totalPageCount: number = 0;
+  currentPage: number = 1;
+  fromPage: number = 1;
+  toPage: number = 1;
 
   reserverPopup = false;
   editBook = false;
   editBookId: string | null = null;
   newBook: Book = new Book();
   bookData: Book = new Book();
-  selectedBookId: string | null = null;
-  selectedMemberId: string | null = null;
 
   constructor(
     private bookService: BookService,
@@ -89,7 +96,7 @@ export class Books implements OnInit {
     this.loadCategories();
     this.loadMember();
     this.loadLibraryName();
-    this.handleRole()
+    this.handleRole();
   }
 
   loadLibraryName(): void {
@@ -133,22 +140,27 @@ export class Books implements OnInit {
   //load data to bookList
   loadBooks(): void {
     this.bookService.getAllBooks().subscribe((data) => {
-      const formattedData = data.map(book => {
-      return {
-        ...book,
-        publishDate: this.convertToDate(book.publishDate).toISOString(), // optional: keep as Date or ISO string
-      };
-    });
+      const formattedData = data.map((book) => {
+        return {
+          ...book,
+          publishDate: this.convertToDate(book.publishDate).toISOString(), // optional: keep as Date or ISO string
+        };
+      });
       this.bookList.set(formattedData);
       this.filterBookList.set(formattedData);
+      this.filterPagesList(1, 8);
+      this.totalPageCount =
+        Math.floor(formattedData.length / 8) +
+        (formattedData.length % 8 > 0 ? 1 : 0);
     });
   }
 
   private convertToDate(dateStr: string): Date {
-  const [datePart, timePart] = dateStr.split(' ');
-  const [day, month, year] = datePart.split('-');
-  return new Date(`${year}-${month}-${day}T${timePart}`);
-}
+    const [datePart, timePart] = dateStr.split(' ');
+    const [day, month, year] = datePart.split('-');
+    return new Date(`${year}-${month}-${day}T${timePart}`);
+  }
+
   //load category to categoryList
   loadCategories(): void {
     this.CategoryService.getAllCategories().subscribe((data) => {
@@ -156,16 +168,60 @@ export class Books implements OnInit {
     });
   }
 
-  handleFilter(event: { categoryId: string; libraryId: string }) {
-    const { categoryId, libraryId } = event;
+  //show page list based on count
+  currentPageChange(current: number) {
+    this.fromPage = (current - 1) * 8 + 1;
+    this.toPage = current * 8;
+    if (this.toPage > this.filterBookList().length) {
+      this.toPage = this.filterBookList().length;
+    }
+    this.filterPagesList(this.fromPage, this.toPage);
+  }
 
-    const filteredBooks = this.bookList().filter((book) => {
-      const matchCategory = categoryId ? book.categoryId === categoryId : true;
-      const matchLibrary = libraryId ? book.libraryId === libraryId : true;
-      return matchCategory && matchLibrary;
-    });
+  //here filter booklist based on range store in filterlist
+  filterPagesList(from: number, to: number) {
+    this.displayBookList.set(this.filterBookList().slice(from - 1, to));
+  }
 
+  onFilterChanges(event: {
+    search: string;
+    category: string;
+    library: string;
+  }) {
+    console.log(
+      'search ' +
+        event.search +
+        '  category' +
+        event.category +
+        ' library' +
+        event.library
+    );
+    this.searchText = event.search;
+    this.selectedCategoryId = event.category;
+    this.selectedLibraryId = event.library;
+    this.applyFilterAndPagination();
+  }
+
+  applyFilterAndPagination() {
+    this.searchText = this.searchText.toLowerCase().trim();
+    const filteredBooks = this.bookList().filter((book) =>
+    (!this.selectedCategoryId || book.categoryId === this.selectedCategoryId) &&
+    (!this.selectedLibraryId || book.libraryId === this.selectedLibraryId) &&
+    (
+      book.author.toLowerCase().includes(this.searchText) ||
+      book.title.toLowerCase().includes(this.searchText)
+    )
+  );
+  
     this.filterBookList.set(filteredBooks);
+
+    console.log(this.filterBookList())  
+
+    this.totalPageCount =
+      Math.floor(this.filterBookList().length / 8) +
+      (this.filterBookList().length % 8 > 0 ? 1 : 0);
+    this.currentPage = 1;
+    this.currentPageChange(1);
   }
 
   cancelAddBook() {
@@ -176,7 +232,6 @@ export class Books implements OnInit {
 
   //addBook
   addBook(formData: Book): void {
-    // debugger
     if (this.editBook) {
       this.saveUpdate(formData);
       return;
@@ -248,14 +303,25 @@ export class Books implements OnInit {
     );
   }
 
-  handleRole():void {
-    
-    const token = localStorage.getItem('accessToken')
-        if (token) {
-          const payload = JSON.parse(atob(token.split('.')[1]));
-          this.role = payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-           console.log("Role:", this.role);
-        }
+  handleRole(): void {
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      this.role =
+        payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+    }
+  }
 
+  nextPage() {
+    if (this.currentPage + 1 <= this.totalPageCount) this.currentPage++;
+  }
+  previousPage() {
+    if (this.currentPage - 1 > 0) this.currentPage--;
+  }
+  firstPage() {
+    this.currentPage = 1;
+  }
+  lastPage() {
+    this.currentPage = this.totalPageCount;
   }
 }

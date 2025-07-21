@@ -1,5 +1,5 @@
 import { Component, Input,  signal } from '@angular/core';
-import { IFieldTypeDefinition } from '../../../models/interface/form';
+import { IFieldTypeDefinition } from '../../../shared/models/interface/form';
 import { FieldtypeService } from '../../../services/form/fieldtype-service';
 @Component({
   selector: 'form-element-menu',

@@ -1,10 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MemberService } from '../../../services/management//member-service';
-import { IMember } from '../../../models/interface/IMembers';
+import { IMember } from '../../../shared/models/interface/IMembers';
 import {FormsModule, NgForm}  from '@angular/forms';
-import { Member } from '../../../models/class/members';
+import { Member } from '../../../shared/models/class/members';
 import { CommonModule } from '@angular/common';
-import { MemberForm } from "../../../components/member-form/member-form";
+import { MemberForm } from "../../../shared/member-form/member-form";
 import { MatIconModule } from "@angular/material/icon";
 
 @Component({

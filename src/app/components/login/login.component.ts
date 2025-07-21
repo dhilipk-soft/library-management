@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Auth } from '../../services/Auth/auth';
-import { ILoginResponse } from '../../models/interface/loginResponse';
+import { ILoginResponse } from '../../shared/models/interface/loginResponse';
 import { Router } from '@angular/router';
 
 @Component({

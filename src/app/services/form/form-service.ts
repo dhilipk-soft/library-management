@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { FormField, FormRow } from '../../models/interface/form';
+import { FormField, FormRow } from '../../shared/models/interface/form';
 
 @Injectable({
   providedIn: 'root'

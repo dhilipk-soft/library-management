@@ -3,6 +3,7 @@ import {
   EventEmitter,
   Input,
   Output,
+  OutputEmitterRef,
   SimpleChanges,
 } from '@angular/core';
 import { Categories } from '../categories/categories';
@@ -16,26 +17,40 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './tool-bar.scss',
 })
 export class ToolBar {
+  searchText: string = '';
+  categoryId: string = '';
+  libraryId: string = '';
 
-  categoryId: string =''
-  libraryId: string =''
-  @Input() searchText: string = '';
-  @Output() searchTextChange = new EventEmitter<string>();
-  @Output() searchHandle = new EventEmitter<{categoryId: string, libraryId: string}>();
-
+  @Output() filterChange = new EventEmitter<{
+    search: string;
+    category: string;
+    library: string;
+  }>();
 
   handleCategoryChange(event: string) {
-    this.categoryId = event
-    this.searchHandle.emit({categoryId: this.categoryId, libraryId: this.libraryId})
+    this.categoryId = event;
+    this.filterChange.emit({
+      search: this.searchText,
+      category: this.categoryId,
+      library: this.libraryId,
+    });
   }
 
   handleLibraryChange(event: string) {
-    this.libraryId = event
-    this.searchHandle.emit({categoryId: this.categoryId, libraryId: this.libraryId})
+    this.libraryId = event;
+    this.filterChange.emit({
+      search: this.searchText,
+      category: this.categoryId,
+      library: this.libraryId,
+    });
   }
 
   onSearchChange(value: string) {
     this.searchText = value;
-    this.searchTextChange.emit(value);
+    this.filterChange.emit({
+      search: this.searchText,
+      category: this.categoryId,
+      library: this.libraryId,
+    });
   }
 }

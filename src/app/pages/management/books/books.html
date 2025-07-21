@@ -1,16 +1,10 @@
 <div class="books-containers">
   <div class="books-con-left">
     <div class="con-left-top">
-      <app-tool-bar
-        [(searchText)]="searchText"
-        (searchHandle)="handleFilter($event)"
-      ></app-tool-bar>
+      <app-tool-bar (filterChange)="onFilterChanges($event)"></app-tool-bar>
     </div>
 
     <div class="con-left-bottom">
-      <div class="books-tp">
-        <h2>Books</h2>
-      </div>
       <div class="books-list">
         <table>
           <thead>
@@ -20,19 +14,20 @@
               <th>Category</th>
               <th>Published Date</th>
               <th>Available Copies</th>
-              <th  *ngIf="role === 'admin'">Actions</th>
+              <th *ngIf="role === 'admin'">Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr
-              *ngFor="let item of filterBookList() | filter:searchText:'title'"
+              *ngFor="let item of displayBookList() | filter:searchText:'title'"
             >
               <td>{{ item.title }}</td>
               <td>{{ item.author }}</td>
               <td>{{ getCategoryName(item.categoryId) }}</td>
               <td>{{ item.publishDate | date}}</td>
               <td>
-                {{ (item.availableCopies === 0)?"Not Available":item.availableCopies }}
+                {{ (item.availableCopies === 0)?"Not
+                Available":item.availableCopies }}
               </td>
               <td class="bookListBtn" *ngIf="role === 'admin' ">
                 <button
@@ -57,12 +52,19 @@
           </tbody>
         </table>
       </div>
+      <div class="pagination-container">
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPageCount]="totalPageCount"
+          (currentPageChange)="currentPageChange($event)"
+        ></app-pagination>
+      </div>
     </div>
   </div>
 
   <!-- form  -->
   <app-book-form
-  *ngIf="role === 'admin'"
+    *ngIf="role === 'admin'"
     [bookData]="bookData"
     (bookDataChange)="addBook($event)"
     [editBook]="editBook"

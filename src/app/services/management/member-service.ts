@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICreateMember, IMember } from '../../models/interface/IMembers';
+import { ICreateMember, IMember } from '../../shared/models/interface/IMembers';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({

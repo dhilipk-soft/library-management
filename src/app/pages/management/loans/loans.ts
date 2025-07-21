@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { LoanService } from '../../../services/management/loan-service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ILoanDisplay } from '../../../models/interface/ILoans';
+import { ILoanDisplay } from '../../../shared/models/interface/ILoans';
 import { ToastrService } from 'ngx-toastr';
 import { MatIconModule } from "@angular/material/icon";
 

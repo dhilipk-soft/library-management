@@ -1,9 +1,9 @@
 
 import { Component, inject, OnInit, signal , Output, EventEmitter  } from '@angular/core';
 import { CategoryService } from '../../services/management/categorie-service';
-import {Category} from '../../models/class/categories';
+import {Category} from '../../shared/models/class/categories';
 import { CommonModule } from '@angular/common';
-import { ILibraryDetail } from '../../models/interface/ILibrary';
+import { ILibraryDetail } from '../../shared/models/interface/ILibrary';
 import { LibraryService } from '../../services/management/library-service';
 
 @Component({

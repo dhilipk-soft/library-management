@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
-import { ILoanDisplay } from '../../models/interface/books';
-import { IAddLoan } from '../../models/interface/ILoans';
+import { ILoanDisplay } from '../../shared/models/interface/books';
+import { IAddLoan } from '../../shared/models/interface/ILoans';
 
 @Injectable({
   providedIn: 'root'
