@@ -7,10 +7,11 @@ import {  ILibraryShow } from '../../../shared/models/interface/ILibrary';
 import { LibraryService } from '../../../services/management//library-service';
 import { Library } from '../../../shared/models/class/Library';
 import { MatIconModule } from "@angular/material/icon";
+import { LibraryList } from "./library-list/library-list";
 
 @Component({
   selector: 'app-library',
-  imports: [FormsModule, CommonModule, MatIconModule],
+  imports: [FormsModule, CommonModule, MatIconModule, LibraryList],
   templateUrl: './library.html',
   styleUrl: './library.css'
 })

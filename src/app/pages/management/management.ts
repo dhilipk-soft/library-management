@@ -5,6 +5,7 @@ import { Header } from '../../components/header/header';
 import { Sidebar } from '../../components/sidebar/sidebar';
 import { Footer } from '../../components/footer/footer';
 import { MatIconModule } from '@angular/material/icon';
+import { Auth } from '../../services/Auth/auth';
 
 @Component({
   selector: 'app-management',
@@ -15,6 +16,11 @@ import { MatIconModule } from '@angular/material/icon';
 export class Management {
   role: string = '';
   toogleBar: boolean = false;
+  loggedIn: boolean = false;
+
+  constructor(private authService: Auth) {
+    this.loggedIn = this.authService.isLoggedIn();
+  }
 
   ngOnInit(): void {
     this.handleRole();

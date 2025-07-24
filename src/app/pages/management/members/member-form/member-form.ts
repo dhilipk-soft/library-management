@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Member } from '../../shared/models/class/members';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Member } from '../../../../shared/models/class/members';
 
 @Component({
   selector: 'app-member-form',

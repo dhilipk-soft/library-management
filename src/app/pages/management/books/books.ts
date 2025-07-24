@@ -1,16 +1,10 @@
-import {
-  Component,
-  inject,
-  OnChanges,
-  SimpleChanges,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Book } from '../../../shared/models/class/books';
 import { signal } from '@angular/core';
 import { BookService } from '../../../services/management/book-service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { CategoryService } from '../../../services/management/categorie-service';
 import { MemberService } from '../../../services/management/member-service';
 import { IMember } from '../../../shared/models/interface/IMembers';
@@ -28,12 +22,14 @@ import { LibraryService } from '../../../services/management/library-service';
 import { ILibraryDetail } from '../../../shared/models/interface/ILibrary';
 import { IBook, UpdateBook } from '../../../shared/models/interface/books';
 
-import { BookForm } from '../../../shared/book-form/book-form';
+import { BookForm } from './book-form/book-form';
 import { ICategory } from '../../../shared/models/interface/ICategories';
 import { ToolBar } from '../../../shared/tool-bar/tool-bar';
 import { MatIconModule } from '@angular/material/icon';
-import { FilterPipe } from '../../../pipes/filter-pipe';
 import { Pagination } from '../../../shared/pagination/pagination';
+import { MatTableModule } from '@angular/material/table';
+import { Auth } from '../../../services/Auth/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-books',
@@ -50,8 +46,9 @@ import { Pagination } from '../../../shared/pagination/pagination';
     BookForm,
     ToolBar,
     MatIconModule,
-    FilterPipe,
     Pagination,
+    MatTableModule,
+    MatButtonModule,
   ],
   templateUrl: './books.html',
   styleUrl: './books.css',
@@ -66,6 +63,10 @@ export class Books implements OnInit {
   libraryList = signal<ILibraryDetail[]>([]);
   displayBookList = signal<Book[]>([]);
 
+  bookPaginationSize: number = 6;
+  memberPhone: string = '';
+  disableReturn: boolean = false;
+  memberDetail: IMember | undefined;
   selectedCategoryId: string = '';
   selectedLibraryId: string = '';
   searchText: string = '';
@@ -74,6 +75,7 @@ export class Books implements OnInit {
   currentPage: number = 1;
   fromPage: number = 1;
   toPage: number = 1;
+  loginStatus: boolean = false;
 
   reserverPopup = false;
   editBook = false;
@@ -83,8 +85,12 @@ export class Books implements OnInit {
 
   constructor(
     private bookService: BookService,
-    private libraryService: LibraryService
-  ) {}
+    private libraryService: LibraryService,
+    private authService: Auth,
+    private router: Router
+  ) {
+    this.loginStatus = this.authService.isLoggedIn();
+  }
 
   CategoryService = inject(CategoryService);
   memberService = inject(MemberService);
@@ -97,6 +103,7 @@ export class Books implements OnInit {
     this.loadMember();
     this.loadLibraryName();
     this.handleRole();
+    this.loadMemberDetails();
   }
 
   loadLibraryName(): void {
@@ -106,7 +113,9 @@ export class Books implements OnInit {
   }
 
   reserveBook(id: string): void {
+    if (!this.loginStatus) this.router.navigate(['/login']);
     this.newLoan.bookId = id;
+    this.newLoan.memberId = this.memberDetail?.memberId ?? '';
     this.reserverPopup = true;
     this.handleAvailableBooks();
   }
@@ -137,6 +146,16 @@ export class Books implements OnInit {
       this.memberList.set(data);
     });
   }
+
+  loadMemberDetails(): void {
+    if (this.loginStatus)
+      this.memberService
+        .getMemberDetailByPhone(this.memberPhone)
+        .subscribe((data) => {
+          this.memberDetail = data;
+        });
+  }
+
   //load data to bookList
   loadBooks(): void {
     this.bookService.getAllBooks().subscribe((data) => {
@@ -148,10 +167,10 @@ export class Books implements OnInit {
       });
       this.bookList.set(formattedData);
       this.filterBookList.set(formattedData);
-      this.filterPagesList(1, 8);
+      this.filterPagesList(1, this.bookPaginationSize);
       this.totalPageCount =
-        Math.floor(formattedData.length / 8) +
-        (formattedData.length % 8 > 0 ? 1 : 0);
+        Math.floor(formattedData.length / this.bookPaginationSize) +
+        (formattedData.length % this.bookPaginationSize > 0 ? 1 : 0);
     });
   }
 
@@ -170,8 +189,8 @@ export class Books implements OnInit {
 
   //show page list based on count
   currentPageChange(current: number) {
-    this.fromPage = (current - 1) * 8 + 1;
-    this.toPage = current * 8;
+    this.fromPage = (current - 1) * this.bookPaginationSize + 1;
+    this.toPage = current * this.bookPaginationSize;
     if (this.toPage > this.filterBookList().length) {
       this.toPage = this.filterBookList().length;
     }
@@ -204,22 +223,23 @@ export class Books implements OnInit {
 
   applyFilterAndPagination() {
     this.searchText = this.searchText.toLowerCase().trim();
-    const filteredBooks = this.bookList().filter((book) =>
-    (!this.selectedCategoryId || book.categoryId === this.selectedCategoryId) &&
-    (!this.selectedLibraryId || book.libraryId === this.selectedLibraryId) &&
-    (
-      book.author.toLowerCase().includes(this.searchText) ||
-      book.title.toLowerCase().includes(this.searchText)
-    )
-  );
-  
+    const filteredBooks = this.bookList().filter(
+      (book) =>
+        (!this.selectedCategoryId ||
+          book.categoryId === this.selectedCategoryId) &&
+        (!this.selectedLibraryId ||
+          book.libraryId === this.selectedLibraryId) &&
+        (book.author.toLowerCase().includes(this.searchText) ||
+          book.title.toLowerCase().includes(this.searchText))
+    );
+
     this.filterBookList.set(filteredBooks);
 
-    console.log(this.filterBookList())  
+    console.log(this.filterBookList());
 
     this.totalPageCount =
-      Math.floor(this.filterBookList().length / 8) +
-      (this.filterBookList().length % 8 > 0 ? 1 : 0);
+      Math.floor(this.filterBookList().length / this.bookPaginationSize) +
+      (this.filterBookList().length % this.bookPaginationSize > 0 ? 1 : 0);
     this.currentPage = 1;
     this.currentPageChange(1);
   }
@@ -279,8 +299,6 @@ export class Books implements OnInit {
       categoryId: formData.categoryId,
       libraryId: formData.libraryId,
     };
-    console.log('update');
-    console.log(updateBook);
 
     this.bookService.updateBook(updateBook, this.bookData.id).subscribe({
       next: () => {
@@ -309,6 +327,13 @@ export class Books implements OnInit {
       const payload = JSON.parse(atob(token.split('.')[1]));
       this.role =
         payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      this.memberPhone =
+        payload[
+          'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/mobilephone'
+        ];
+      // console.log(payload);
+      // console.log(this.memberPhone);
+      this.disableReturn = this.role === 'admin';
     }
   }
 

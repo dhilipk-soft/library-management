@@ -2,13 +2,13 @@ import { Component, EventEmitter, Input, Output, SimpleChange, SimpleChanges, Vi
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
-import { Book } from '../models/class/books';
+import { Book } from '../../../../shared/models/class/books';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ICategory } from '../models/interface/ICategories';
-import { ILibraryDetail } from '../models/interface/ILibrary';
+import { ICategory } from '../../../../shared/models/interface/ICategories';
+import { ILibraryDetail } from '../../../../shared/models/interface/ILibrary';
 import { MatIconModule } from "@angular/material/icon";
-import { AppOnlyNumbers } from '../directives/onlynumberdirective';
+import { AppOnlyNumbers } from '../../../../shared/directives/onlynumberdirective';
 
 @Component({
   selector: 'app-book-form',

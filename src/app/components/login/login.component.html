@@ -1,7 +1,10 @@
 <div class="login-container">
   <form class="login-box" (ngSubmit)="onSubmit()">
-    <p class="subtitle">Please enter your details</p>
-    <h2 class="title">Welcome back</h2>
+    <p class="subtitle">
+       <span></span>
+      <a href="http://localhost:4200/management/books">👉 Get Your Books </a>
+    </p>
+    <h2 class="title">Welcome </h2>
 
     <input
       type="email"
@@ -24,14 +27,11 @@
       <a href="#" class="link">Forgot password</a>
     </div>
 
-    <button class="btn primary" type="submit">Sign up</button>
+    <button class="btn primary" type="submit">Sign in</button>
 
     <div class="divider">or</div>
 
-    <button class="btn google" type="button">
-      
-      Sign in with Google
-    </button>
+    <button class="btn google" type="button">Sign in with Google</button>
 
     <p class="footer">
       Don’t have an account?

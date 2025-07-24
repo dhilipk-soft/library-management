@@ -1,46 +1,52 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import {  MatIconModule } from '@angular/material/icon';
-import { routes } from '../../app.routes';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { Auth } from '../../services/Auth/auth';
 
 @Component({
   selector: 'app-header',
   imports: [MatIconModule],
   templateUrl: './header.html',
-  styleUrl: './header.css'
+  styleUrl: './header.css',
 })
-
 export class Header {
-
-  router = inject(Router)
-  profile : boolean = false
+  router = inject(Router);
+  profile: boolean = false;
+  loginStatus: boolean = false;
 
   toggleBar: boolean = false;
 
   @Output() toggleBarChange = new EventEmitter<boolean>();
 
-  handleToggle(){
-    console.log(this.toggleBar)
+  constructor(authService: Auth) {
+    this.loginStatus = authService.isLoggedIn();
+    console.log(this.loginStatus);
+  }
+
+  handleToggle() {
+    console.log(this.toggleBar);
     this.toggleBar = !this.toggleBar;
     this.toggleBarChange.emit(this.toggleBar);
   }
 
-  openProfile(){
-    this.profile = !this.profile
-    console.log(this.profile)
+  openProfile() {
+    this.profile = !this.profile;
+    // console.log(this.profile);
   }
 
-  profileTab(){
+  profileTab() {
     this.openProfile();
-
   }
 
-  logout(){
-    this.openProfile();
+  logout() {
+    if (!this.loginStatus) {
+      this.router.navigate(['/login']);
+    }
 
+    this.openProfile();
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
 
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 }

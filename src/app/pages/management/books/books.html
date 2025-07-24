@@ -14,22 +14,20 @@
               <th>Category</th>
               <th>Published Date</th>
               <th>Available Copies</th>
-              <th *ngIf="role === 'admin'">Actions</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              *ngFor="let item of displayBookList() | filter:searchText:'title'"
-            >
+            <tr *ngFor="let item of displayBookList() ">
               <td>{{ item.title }}</td>
               <td>{{ item.author }}</td>
               <td>{{ getCategoryName(item.categoryId) }}</td>
               <td>{{ item.publishDate | date}}</td>
               <td>
-                {{ (item.availableCopies === 0)?"Not
-                Available":item.availableCopies }}
+                {{ (item.availableCopies === 0)?"Out of
+                Stack 😥":item.availableCopies }}
               </td>
-              <td class="bookListBtn" *ngIf="role === 'admin' ">
+              <td class="bookListBtn">
                 <button
                   (click)="reserveBook(item.id)"
                   class="action-btn"
@@ -41,6 +39,7 @@
                 </button>
 
                 <button
+                  *ngIf="loginStatus && role === 'admin' "
                   (click)="updateBook(item.id)"
                   class="action-btn"
                   aria-label="Edit Book"
@@ -64,7 +63,7 @@
 
   <!-- form  -->
   <app-book-form
-    *ngIf="role === 'admin'"
+    *ngIf="loginStatus && role === 'admin'"
     [bookData]="bookData"
     (bookDataChange)="addBook($event)"
     [editBook]="editBook"
@@ -86,13 +85,20 @@
         </option>
       </select>
 
-      <label for="member">Select Member:</label>
-      <select [(ngModel)]="newLoan.memberId" id="member" name="member" required>
-        <option value="" disabled selected>Select a member</option>
-        <option *ngFor="let item of memberList()" [value]="item.memberId">
-          {{ item.fullName }}
-        </option>
-      </select>
+      <div *ngIf="role === 'admin'">
+        <label for="member">Select Member:</label>
+        <select
+          [(ngModel)]="newLoan.memberId"
+          id="member"
+          name="member"
+          required
+        >
+          <option value="" disabled selected>Select a member</option>
+          <option *ngFor="let item of memberList()" [value]="item.memberId">
+            {{ item.fullName }}
+          </option>
+        </select>
+      </div>
 
       <label for="due-date">Select Due date:</label>
       <input

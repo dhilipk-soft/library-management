@@ -1,11 +1,11 @@
 import { Component ,inject ,OnInit, signal} from '@angular/core';
-import { LibraryService } from '../../../services/management//library-service';
-import { ILibrary, ILibraryShow } from '../../../shared/models/interface/ILibrary';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { LibraryShow } from '../../../shared/models/class/Library';
-import { IMember } from '../../../shared/models/interface/IMembers';
 import { MatIconModule } from "@angular/material/icon";
+import { ILibraryShow } from '../../../../shared/models/interface/ILibrary';
+import { LibraryShow } from '../../../../shared/models/class/Library';
+import { IMember } from '../../../../shared/models/interface/IMembers';
+import { LibraryService } from '../../../../services/management/library-service';
 
 @Component({
   selector: 'app-library-list',

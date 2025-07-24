@@ -37,3 +37,14 @@
     gap:10px;
     align-items: center;
 }
+
+.tailwind-isolated {
+  all: initial;
+  * {
+    all: unset;
+  }
+
+  // Re-apply basic styles so Material Icons work
+  font-family: 'Material Icons', sans-serif;
+  display: block;
+}
