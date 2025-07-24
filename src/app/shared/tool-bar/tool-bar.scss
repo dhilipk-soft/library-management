@@ -1,0 +1,26 @@
+.toolbar_wrapper{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    gap:10px;
+    align-items: center;
+}
+
+.toolbar__category{
+    display: flex;
+    align-items: center;
+}
+
+.toolbar_container input{
+    padding: 6px 8px;
+    font-size: 14px;
+    border:none;
+}
+
+.toolbar_container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #cccc;
+    border-radius: 6px;
+    margin-left: 10px;
+}

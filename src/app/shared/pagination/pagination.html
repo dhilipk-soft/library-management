@@ -1,0 +1,40 @@
+<div class="pagination">
+  <div class="front-lay">
+    <div
+      [ngClass]="[currentPage === 1 ? 'blocked' : 'begin']"
+      (click)="goToFirstPage()"
+      [class.disabled]="currentPage === 1"
+    >
+      <mat-icon>first_page</mat-icon>
+    </div>
+    <div
+      [ngClass]="[currentPage === 1 ? 'blocked' : 'next']"
+      (click)="goToNextPage()"
+      [class.disabled]="currentPage === 1"
+    >
+      <mat-icon>chevron_left</mat-icon>
+    </div>
+  </div>
+
+  <div class="pagecount-container">
+    {{ `${currentPage} / ${totalPageCount}` }}
+  </div>
+
+  <div class="last-lay">
+    <div
+      [ngClass]="[currentPage === totalPageCount ? 'blocked' : 'previous']"
+      (click)="goToPreviousPage()"
+      [class.disabled]="currentPage === totalPageCount"
+    >
+      <mat-icon>chevron_right</mat-icon>
+    </div>
+
+    <div
+      [ngClass]="[currentPage === totalPageCount ? 'blocked' : 'last']"
+      (click)="goToLastPage()"
+      [class.disabled]="currentPage === totalPageCount"
+    >
+      <mat-icon>last_page</mat-icon>
+    </div>
+  </div>
+</div>

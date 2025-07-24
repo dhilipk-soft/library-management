@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IFieldTypeDefinition } from '../../models/interface/form';
+import { IFieldTypeDefinition } from '../../shared/models/interface/form';
 
 const TEXT_FIELD_DEFINITION = {
   type: "type",

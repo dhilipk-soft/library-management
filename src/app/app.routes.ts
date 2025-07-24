@@ -28,7 +28,6 @@ export const routes: Routes = [
     path: 'management',
     loadComponent: () =>
       import('./pages/management/management').then((m) => m.Management),
-    canActivate: [authGuard, RoleGuard],
     data: { roles: ['admin', 'librarian', 'user'] },
     children: [
       {
@@ -41,13 +40,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/management/books/books').then((m) => m.Books),
         data: { roles: ['admin', 'librarian', 'user'] },
-        canActivate: [authGuard, RoleGuard]
       },
       {
         path: 'loans',
         loadComponent: () =>
           import('./pages/management/loans/loans').then((m) => m.Loans),
-        data: { roles: ['admin', 'librarian'] },
+        data: { roles: ['admin', 'librarian','user'] },
         canActivate: [authGuard, RoleGuard]
       },
       {
@@ -67,7 +65,7 @@ export const routes: Routes = [
       {
         path: 'library-list',
         loadComponent: () =>
-          import('./pages/management/library-list/library-list').then(
+          import('./pages/management/library/library-list/library-list').then(
             (m) => m.LibraryList
           ),
         data: { roles: ['admin', 'librarian'] },

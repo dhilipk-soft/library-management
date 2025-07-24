@@ -1,15 +1,17 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MemberService } from '../../../services/management//member-service';
-import { IMember } from '../../../models/interface/IMembers';
+import { IMember } from '../../../shared/models/interface/IMembers';
 import { CommonModule } from '@angular/common';
-import {  ILibraryShow } from '../../../models/interface/ILibrary';
+import {  ILibraryShow } from '../../../shared/models/interface/ILibrary';
 import { LibraryService } from '../../../services/management//library-service';
-import { Library } from '../../../models/class/Library';
+import { Library } from '../../../shared/models/class/Library';
+import { MatIconModule } from "@angular/material/icon";
+import { LibraryList } from "./library-list/library-list";
 
 @Component({
   selector: 'app-library',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatIconModule, LibraryList],
   templateUrl: './library.html',
   styleUrl: './library.css'
 })

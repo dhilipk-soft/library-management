@@ -1,0 +1,43 @@
+.categories-container{
+  display: flex;  
+  align-items: center;
+  justify-content: center;
+}
+.library-list,
+.categories-list {
+  width: 100%;
+}
+
+h2{
+  font-size: 24px;
+  color: #0f172a;
+  margin: 0px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.library-list select,
+.categories-list select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s;
+}
+
+.categories-list select:hover {
+  border-color: #999;
+}
+
+.categories-list select:focus {
+  border-color: #3f51b5;
+  background-color: #fff;
+}

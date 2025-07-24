@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormEditor } from './form-editor/form-editor';
 
 @Component({
   selector: 'form-canvas',

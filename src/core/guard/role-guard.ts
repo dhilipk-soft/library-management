@@ -8,11 +8,11 @@ import { CLAIM_KEYS } from '../../app/constant/role';
 })
 export class RoleGuard implements CanActivate{
 
-  constructor(private router: Router){
-
-  }
+  constructor(private router: Router){  }
 
   canActivate(next: ActivatedRouteSnapshot , state: RouterStateSnapshot ):boolean | Observable<boolean> | Promise<boolean>{
+
+    // return true;
     const exposeRoles: string[] = next.data['roles'];
     const token = localStorage.getItem('accessToken');
 
@@ -25,7 +25,7 @@ export class RoleGuard implements CanActivate{
     const userRole = payload[CLAIM_KEYS.ROLE_URL];
 
     if(exposeRoles.includes(userRole)){
-      console.log(exposeRoles)
+      // console.log(exposeRoles)
       return true;
     }
 

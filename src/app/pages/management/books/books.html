@@ -1,16 +1,10 @@
 <div class="books-containers">
-  
   <div class="books-con-left">
     <div class="con-left-top">
-      <app-categories
-        (categorySelected)="handleFilterBooks($event)"
-        (librarySelected)="handleFilterLibraries($event)"
-      ></app-categories>
+      <app-tool-bar (filterChange)="onFilterChanges($event)"></app-tool-bar>
     </div>
+
     <div class="con-left-bottom">
-      <div class="books-tp">
-        <h2>Books</h2>
-      </div>
       <div class="books-list">
         <table>
           <thead>
@@ -24,33 +18,52 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of filterBookList()">
-              <td>{{ item.title | titlecase }}</td>
-              <td>{{ item.author | titlecase }}</td>
-              <td>{{ getCategoryName(item.categoryId)| titlecase }}</td>
-              <td>{{ item.publishDate }}</td>
+            <tr *ngFor="let item of displayBookList() ">
+              <td>{{ item.title }}</td>
+              <td>{{ item.author }}</td>
+              <td>{{ getCategoryName(item.categoryId) }}</td>
+              <td>{{ item.publishDate | date}}</td>
               <td>
-                {{ (item.availableCopies === 0)?"Not Available":item.availableCopies }}
+                {{ (item.availableCopies === 0)?"Out of
+                Stack 😥":item.availableCopies }}
               </td>
               <td class="bookListBtn">
                 <button
                   (click)="reserveBook(item.id)"
-                  [ngClass]="{'out-of-stock': item.availableCopies === 0  }"
+                  class="action-btn"
+                  [ngClass]="{ 'out-of-stock': item.availableCopies === 0 }"
                   [disabled]="item.availableCopies === 0"
+                  aria-label="Reserve Book"
                 >
-                  Get
+                  <mat-icon>shopping_cart</mat-icon>
                 </button>
-                <button (click)="updateBook(item.id)">Edit</button>
+
+                <button
+                  *ngIf="loginStatus && role === 'admin' "
+                  (click)="updateBook(item.id)"
+                  class="action-btn"
+                  aria-label="Edit Book"
+                >
+                  <mat-icon>edit</mat-icon>
+                </button>
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="pagination-container">
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalPageCount]="totalPageCount"
+          (currentPageChange)="currentPageChange($event)"
+        ></app-pagination>
       </div>
     </div>
   </div>
 
   <!-- form  -->
   <app-book-form
+    *ngIf="loginStatus && role === 'admin'"
     [bookData]="bookData"
     (bookDataChange)="addBook($event)"
     [editBook]="editBook"
@@ -63,6 +76,7 @@
 <div *ngIf="reserverPopup" class="popup-overlay">
   <div class="popup-content">
     <h2>Reserve a Book</h2>
+
     <form (ngSubmit)="handleReserve(reservForm)" #reservForm="ngForm">
       <label for="book">Select Book:</label>
       <select [(ngModel)]="newLoan.bookId" id="book" name="book" required>
@@ -71,13 +85,20 @@
         </option>
       </select>
 
-      <label for="member">Select Member:</label>
-      <select [(ngModel)]="newLoan.memberId" id="member" name="member" required>
-        <option value="" disabled selected>Select a member</option>
-        <option *ngFor="let item of memberList()" [value]="item.memberId">
-          {{ item.fullName }}
-        </option>
-      </select>
+      <div *ngIf="role === 'admin'">
+        <label for="member">Select Member:</label>
+        <select
+          [(ngModel)]="newLoan.memberId"
+          id="member"
+          name="member"
+          required
+        >
+          <option value="" disabled selected>Select a member</option>
+          <option *ngFor="let item of memberList()" [value]="item.memberId">
+            {{ item.fullName }}
+          </option>
+        </select>
+      </div>
 
       <label for="due-date">Select Due date:</label>
       <input
