@@ -24,8 +24,8 @@
               <td>{{ getCategoryName(item.categoryId) }}</td>
               <td>{{ item.publishDate | date}}</td>
               <td>
-                {{ (item.availableCopies === 0)?"Out of
-                Stack 😥":item.availableCopies }}
+                {{ (item.availableCopies === 0)?"Out of Stack
+                😥":item.availableCopies }}
               </td>
               <td class="bookListBtn">
                 <button
@@ -77,7 +77,7 @@
   <div class="popup-content">
     <h2>Reserve a Book</h2>
 
-    <form (ngSubmit)="handleReserve(reservForm)" #reservForm="ngForm">
+    <form (ngSubmit)="handleReserve(reserveForm)" #reserveForm="ngForm">
       <label for="book">Select Book:</label>
       <select [(ngModel)]="newLoan.bookId" id="book" name="book" required>
         <option *ngFor="let item of availableBookList()" [value]="item.id">
@@ -110,7 +110,7 @@
       />
 
       <div class="popup-actions">
-        <button type="submit" [disabled]="reservForm.invalid ">Reserve</button>
+        <button type="submit" [disabled]="reserveForm.invalid ">Reserve</button>
         <button type="button" (click)="reserverPopup = false">Cancel</button>
       </div>
     </form>

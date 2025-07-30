@@ -1,0 +1,15 @@
+<div
+  class="w-full bg-white p-4 pt-1 rounded-lg shadow-sm border border-gray-200 hover:border-black"
+>
+  <div class="flex items-center justify-between mb-1">
+    <span class="text-sm">{{field.type | titlecase}}</span>
+    <button
+      mat-icon-button
+      (click)="deleteField($event)"
+      class="cursor-pointer"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+  <app-field-preview class="flex-1" [field]="field" />
+</div>

@@ -1,0 +1,13 @@
+<div class="py-6 w-full">
+  <div
+    class="p-6 flex flex-col gap-4 shadow-md rounded-lg border border-gray-200"
+  >
+    @for(row of formRows(); track row.id){
+    <div class="flex gap-4 flex-wrap p-8 rounded-lg border-2 border-dashed border-gray-200">
+      @for (field of row.fields; track field.id) {
+      <app-field-preview class="flex-1" [field]="field" />
+      }
+    </div>
+    }
+  </div>
+</div>
