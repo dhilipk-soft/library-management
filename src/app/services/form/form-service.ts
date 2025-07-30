@@ -17,6 +17,12 @@ export class FormService {
     this._rows.next(rows);
   }
 
+  deleteRow(rowId: string) {
+    const rows = this.rows;
+    const newRows = rows.filter((row) => row.id !== rowId);
+    this.setRows(newRows);
+  }
+
   addRow(field: FormField) {
     const rows = this.rows;
     const newRows = [...rows, { id: crypto.randomUUID(), fields: [field] }];

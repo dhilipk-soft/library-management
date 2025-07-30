@@ -7,10 +7,11 @@ import {
   IFieldTypeDefinition,
 } from '../../../../shared/models/interface/form';
 import { FormFieldComponent } from '../form-field/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-form-editor',
-  imports: [DragDropModule, FormFieldComponent],
+  imports: [DragDropModule, FormFieldComponent, MatIconModule],
   templateUrl: './form-editor.html',
   styleUrl: './form-editor.scss',
   standalone: true,
@@ -26,22 +27,12 @@ export class FormEditor {
     });
   }
 
-  addDropList(event: CdkDragDrop<string>) {
-    if (event.previousContainer.data === 'field-selector') {
-      const fieldType = event.item.data as IFieldTypeDefinition;
-      const newField: FormField = {
-        id: crypto.randomUUID(),
-        ...fieldType.defaultConfig,
-        type: fieldType.type,
-        label: fieldType.label,
-      };
-
-      this.formService.addRow(newField);
-      return;
-    }
+  deleteList(rowId: string) {
+    this.formService.deleteRow(rowId);
   }
 
-  onDropList(event: CdkDragDrop<string>, rowId: string) {
+  onDropList(event: CdkDragDrop<string>, rowId: string = '') {
+    console.log(event)
     if (event.previousContainer.data === 'field-selector') {
       const fieldType = event.item.data as IFieldTypeDefinition;
       const newField: FormField = {
@@ -50,9 +41,11 @@ export class FormEditor {
         type: fieldType.type,
         label: fieldType.label,
       };
-
-      this.formService.addField(newField, rowId, event.currentIndex);
+      if (rowId === '') this.formService.addRow(newField);
+      else this.formService.addField(newField, rowId, event.currentIndex);
       return;
     }
+
+    
   }
 }

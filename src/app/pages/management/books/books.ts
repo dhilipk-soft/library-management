@@ -148,12 +148,12 @@ export class Books implements OnInit {
   }
 
   loadMemberDetails(): void {
-    if (this.loginStatus)
-      this.memberService
-        .getMemberDetailByPhone(this.memberPhone)
-        .subscribe((data) => {
-          this.memberDetail = data;
-        });
+    // if (this.loginStatus)
+    //   this.memberService
+    //     .getMemberDetailByPhone(this.memberPhone)
+    //     .subscribe((data) => {
+    //       this.memberDetail = data;
+    //     });
   }
 
   //load data to bookList
