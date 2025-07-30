@@ -1,8 +1,41 @@
-<div class="p-4">
-    <div class="p-8 rounded-lg border-2 border-dashed border-gray-200" 
+<div class="p-4 flex flex-col gap-4">
+  @for(row of formRows(); track row.id){
+  <div
+    class="p-8 pt-2 rounded-lg border-2 border-dashed border-gray-200"
+    cdkDropList
+    (cdkDropListDropped)="onDropList($event, row.id)"
+    [cdkDropListOrientation]="'mixed'"
+  >
+    <div class="flex flex-col gap-1">
+      <div class="flex-1 flex">
+        <div class="flex-1"></div>
+        <button class="cursor-pointer" (click)="deleteList(row.id)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div class="flex flex-wrap gap-4">
+        @for (field of row.fields; track field.id) {
+        <app-form-field
+          cdkDrag
+          [cdkDragData]="field"
+          class="flex-1"
+          [field]="field"
+        />
+        }@empty {
+        <div
+          class="w-full p-4 border border-dashed border-primary-container rounded text-gray-400"
+        >
+          Empty
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+  }
+  <div
+    class="p-8 rounded-lg border-2 border-dashed border-gray-200"
     cdkDropList
     (cdkDropListDropped)="onDropList($event)"
-    >
-
-    </div>
+  ></div>
 </div>

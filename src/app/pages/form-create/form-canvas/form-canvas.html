@@ -1,9 +1,17 @@
 <div class="bg-white overflow-y-auto">
-    <div class="pb-4 border-b border-gray-200">
-        <h3 class="text-xl font-medium"> Form Canvas</h3>
-    </div>
-
-    <app-form-editor></app-form-editor>
-
-
-</div>  
+  <div class="flex gap-10 items-center pb-4 border-b border-gray-200">
+    <h3 class="text-xl font-medium">Form Canvas</h3>
+    <mat-button-toggle-group
+      [(value)]="activeTab"
+      hideSingleSelectionIndicator="true"
+    >
+      <mat-button-toggle value="editor">Editor</mat-button-toggle>
+      <mat-button-toggle value="preview">Preview</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  @if(activeTab == 'editor'){
+  <app-form-editor></app-form-editor>
+  } @else{
+  <app-form-preview></app-form-preview>
+  }
+</div>

@@ -9,39 +9,35 @@ import { LibraryService } from '../../../../services/management/library-service'
 
 @Component({
   selector: 'app-library-list',
-  imports: [FormsModule, CommonModule, MatIconModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './library-list.html',
-  styleUrl: './library-list.css'
+  styleUrl: './library-list.css',
 })
-export class LibraryList implements OnInit{
-
-  libraryList = signal<ILibraryShow []>([])
-  selectedLibrary: LibraryShow = new LibraryShow()
-  selectedLibraryMembers = signal<IMember []>([])
-
+export class LibraryList implements OnInit {
+  libraryList = signal<ILibraryShow[]>([]);
+  selectedLibrary: LibraryShow = new LibraryShow();
+  selectedLibraryMembers = signal<IMember[]>([]);
   libraryService = inject(LibraryService);
 
   ngOnInit(): void {
-      this.loadLibrary();
+    this.loadLibrary();
   }
 
-  loadLibrary():void{
-    this.libraryService.getAllLibraries().subscribe((data)=>{
+  loadLibrary(): void {
+    this.libraryService.getAllLibraries().subscribe((data) => {
       this.libraryList.set(data);
       // console.log(this.libraryList())
-    })
+    });
   }
 
-  handleListMembers(): void{
-    const find = this.libraryList().find(library => library.libraryName == this.selectedLibrary.libraryName)
+  handleListMembers(): void {
+    const find = this.libraryList().find(
+      (library) => library.libraryName == this.selectedLibrary.libraryName
+    );
     // console.log(find)
-    if(find){
-      this.selectedLibraryMembers.set(find.members)
+    if (find) {
+      this.selectedLibraryMembers.set(find.members);
     }
     // console.log(this.selectedLibraryMembers())
   }
-
-
-
-
 }
