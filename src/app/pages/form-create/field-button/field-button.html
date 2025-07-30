@@ -1,14 +1,25 @@
-<button 
-cdkDrag
-[cdkDragData]="type"
-class="p-2 flex items-center w-full border border-gray-200 hover:border-black hover:shadow-md rounded-sm text-sm gap-2 cursor-pointer">
-    <div class="p-2 flex items-center bg-gray-100 rounded-md justify-center element-menu">
-        <mat-icon>
-            {{type.icon}}
-        </mat-icon>
-    </div>  
-    <span [innerText]="type.label" class="justify-center"></span>
-    <div 
-    *cdkDragPlaceholder
-    ></div>
+<button
+  cdkDrag
+  (cdkDragStarted)="whileDragging.set(true)"
+  (cdkDragEnded)="whileDragging.set(false)"
+  [cdkDragData]="type"
+  class="p-2 flex items-center w-full border border-gray-200 hover:border-black hover:shadow-md rounded-sm text-sm gap-2 cursor-pointer"
+>
+  <div
+    class="p-2 flex items-center bg-gray-100 rounded-md justify-center element-menu"
+  >
+    <mat-icon> {{type.icon}} </mat-icon>
+  </div>
+  <span [innerText]="type.label" class="justify-center"></span>
+  <div *cdkDragPlaceholder></div>
 </button>
+@if(whileDragging()){
+<div class="p-2 flex items-center w-full border border-gray-200 hover:border-black hover:shadow-md rounded-sm text-sm gap-2 cursor-pointer">
+  <div
+    class="p-2 flex items-center bg-gray-100 rounded-md justify-center element-menu"
+  >
+    <mat-icon> {{type.icon}} </mat-icon>
+  </div>
+  <span [innerText]="type.label" class="justify-center"></span>
+</div>
+}

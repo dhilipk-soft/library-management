@@ -32,7 +32,7 @@ export class FormEditor {
   }
 
   onDropList(event: CdkDragDrop<string>, rowId: string = '') {
-    console.log(event)
+    console.log(event);
     if (event.previousContainer.data === 'field-selector') {
       const fieldType = event.item.data as IFieldTypeDefinition;
       const newField: FormField = {
@@ -46,6 +46,14 @@ export class FormEditor {
       return;
     }
 
-    
+    const dragData = event.item.data as FormField;
+    const previousRowId = event.previousContainer.data as string;
+
+    this.formService.moveField(
+      dragData.id,
+      previousRowId,
+      rowId,
+      event.currentIndex
+    );
   }
 }
