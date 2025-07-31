@@ -25,6 +25,20 @@ export class FormService {
     this._rows.next(rows);
   }
 
+  updateField(fieldId: string, data: Partial<FormField>) {
+    const rows = this.rows;
+    const newRows = rows.map((row) => ({
+      ...row,
+      fields: row.fields.map((field) => {
+        if (field.id === fieldId) {
+          return { ...field, ...data };
+        }
+        return field;
+      }),
+    }));
+    this.setRows(newRows);
+  }
+
   setSelectedField(id: string) {
     this._selectedFieldId.set(id);
   }

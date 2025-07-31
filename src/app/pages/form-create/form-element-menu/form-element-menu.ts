@@ -1,6 +1,6 @@
 import { Component, Input, signal } from '@angular/core';
 import { IFieldTypeDefinition } from '../../../shared/models/interface/form';
-import { FieldtypeService } from '../../../services/form/fieldtype-service';
+import { FieldTypeService } from '../../../services/form/fieldtype-service';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 @Component({
   selector: 'form-element-menu',
@@ -11,7 +11,7 @@ import { CdkDrag } from '@angular/cdk/drag-drop';
 export class FormElementMenu {
   fieldType = signal<IFieldTypeDefinition[]>([]);
 
-  constructor(private fieldTypeService: FieldtypeService) {}
+  constructor(private fieldTypeService: FieldTypeService) {}
 
   ngOnInit(): void {
     this.loadFieldTypes();

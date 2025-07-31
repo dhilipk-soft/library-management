@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { FormService } from '../../../../services/form/form-service';
 import { FieldPreview } from '../field-preview/field-preview';
-import { single } from 'rxjs';
 
 @Component({
   selector: 'app-form-field',
@@ -18,11 +17,9 @@ export class FormFieldComponent {
 
   constructor(private formService: FormService) {
     effect(() => {
-      console.log('effect');
       const selected = this.formService.selectedField$();
       if (selected?.id) {
         this.currentSelectedField.set(selected.id);
-        console.log(this.currentSelectedField());
       }
     });
   }

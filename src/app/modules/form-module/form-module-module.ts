@@ -10,6 +10,11 @@ import { FormEditor } from '../../pages/form-create/form-canvas/form-editor/form
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormPreview } from "../../pages/form-create/form-canvas/form-preview/form-preview";
+import { MatInputModule } from "@angular/material/input";
+import { MatCheckbox } from "@angular/material/checkbox";
+import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from "@angular/material/select";
+import { DynamicOption } from "../../pages/form-create/form-setting/dynamic-option/dynamic-option";
 
 @NgModule({
   declarations: [FormCreate, FormSetting, FormCanvas,
@@ -21,7 +26,12 @@ import { FormPreview } from "../../pages/form-create/form-canvas/form-preview/fo
     FormEditor,
     DragDropModule,
     MatButtonToggleModule,
-    FormPreview
+    FormPreview,
+    MatInputModule,
+    MatCheckbox,
+    FormsModule,
+    MatSelectModule,
+    DynamicOption
 ],
   bootstrap: [FormCreate],
 })

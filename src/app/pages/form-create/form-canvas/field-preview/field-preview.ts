@@ -1,7 +1,7 @@
 import { Component, computed, Input, Type } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { FormField } from '../../../../shared/models/interface/form';
-import { FieldtypeService } from '../../../../services/form/fieldtype-service';
+import { FieldTypeService } from '../../../../services/form/fieldtype-service';
 
 @Component({
   selector: 'app-field-preview',
@@ -11,7 +11,7 @@ import { FieldtypeService } from '../../../../services/form/fieldtype-service';
 })
 export class FieldPreview {
   @Input() field!: FormField;
-  constructor(private fieldTypeService: FieldtypeService) {}
+  constructor(private fieldTypeService: FieldTypeService) {}
 
   previewComponent = computed(() => {
     return (
