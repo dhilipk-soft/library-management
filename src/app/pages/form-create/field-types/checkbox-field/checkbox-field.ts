@@ -10,4 +10,7 @@ import { FormField } from '../../../../shared/models/interface/form';
 })
 export class CheckboxField {
   @Input() field!: FormField;
+  ngOnInit() {
+    console.log('checkbox====>', this.field);
+  }
 }

@@ -1,5 +1,7 @@
 <div
   class="w-full bg-white p-4 pt-1 rounded-lg shadow-sm border border-gray-200 hover:border-black"
+  (click)="setSelectedField(field.id)"
+  [class]="currentSelectedField() === field.id ? '!border-black' : ''"
 >
   <div class="flex items-center justify-between mb-1">
     <span class="text-sm">{{field.type | titlecase}}</span>

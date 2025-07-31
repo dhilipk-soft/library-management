@@ -1,11 +1,11 @@
 <mat-form-field class="w-full flex">
-  <mat-label for="field-input">Input</mat-label>
+  <mat-label for="field-input">{{field.label}}</mat-label>
   <input
     name="field-input"
     id="field-input"
     matInput
     [type]="field.inputType || 'text'"
     [required]="field.required"
-    [placeholder]="field.label"
+    [placeholder]="field.placeholder || ''"
   />
 </mat-form-field>
